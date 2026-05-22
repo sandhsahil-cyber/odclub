@@ -2,7 +2,7 @@
 <html class="dark" lang="en">
 <head>
     <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
     <title>OD Club Portal</title>
     <link rel="manifest" href="/manifest.json">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -45,6 +45,9 @@
         }
         .bento-card:hover { border-top-color: #ffb2bc; box-shadow: 0 0 20px rgba(183, 110, 121, 0.1); transform: translateY(-4px); }
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+        /* PWA Safe Area Insets */
+        header { padding-top: env(safe-area-inset-top); }
+        main { padding-bottom: calc(3rem + env(safe-area-inset-bottom)); }
     </style>
 
     <meta name="theme-color" content="#131313" />
@@ -72,39 +75,27 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             
-            <!-- Member Check-in -->
-            <a href="/member-checkin.html" class="bento-card p-6 md:p-8 rounded-xl min-h-[200px] md:h-64 flex flex-col justify-between group cursor-pointer">
-                <div>
-                    <span class="material-symbols-outlined text-primary text-3xl md:text-4xl mb-3 md:mb-4 group-hover:scale-110 transition-transform">qr_code_scanner</span>
-                    <h3 class="font-headline-md text-on-surface uppercase mb-1 md:mb-2 text-lg md:text-xl">Member Check-in</h3>
-                    <p class="font-label-md text-on-surface-variant text-xs md:text-sm">Self-service terminal for members to request facility access.</p>
-                </div>
-                <div class="flex items-center gap-2 text-primary mt-4 font-label-md uppercase tracking-wider text-[10px] md:text-xs">
-                    Start <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                </div>
-            </a>
-
-            <!-- Gym Admin -->
+            <!-- Gym Portal -->
             <a href="/gym-admin.html" class="bento-card p-6 md:p-8 rounded-xl min-h-[200px] md:h-64 flex flex-col justify-between group cursor-pointer">
                 <div>
                     <span class="material-symbols-outlined text-primary text-3xl md:text-4xl mb-3 md:mb-4 group-hover:scale-110 transition-transform">fitness_center</span>
-                    <h3 class="font-headline-md text-on-surface uppercase mb-1 md:mb-2 text-lg md:text-xl">Gym Admin</h3>
-                    <p class="font-label-md text-on-surface-variant text-xs md:text-sm">Review pending check-ins and authorize gym access.</p>
+                    <h3 class="font-headline-md text-on-surface uppercase mb-1 md:mb-2 text-lg md:text-xl">Gym Portal</h3>
+                    <p class="font-label-md text-on-surface-variant text-xs md:text-sm">Member check-in and staff authorization for gym access.</p>
                 </div>
                 <div class="flex items-center gap-2 text-primary mt-4 font-label-md uppercase tracking-wider text-[10px] md:text-xs">
-                    Access Module <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    Access Portal <span class="material-symbols-outlined text-sm">arrow_forward</span>
                 </div>
             </a>
 
-            <!-- Game Zone Admin -->
+            <!-- Game Zone Portal -->
             <a href="/gamezone-admin.html" class="bento-card p-6 md:p-8 rounded-xl min-h-[200px] md:h-64 flex flex-col justify-between group cursor-pointer">
                 <div>
                     <span class="material-symbols-outlined text-primary text-3xl md:text-4xl mb-3 md:mb-4 group-hover:scale-110 transition-transform">sports_esports</span>
-                    <h3 class="font-headline-md text-on-surface uppercase mb-1 md:mb-2 text-lg md:text-xl">Game Zone Admin</h3>
-                    <p class="font-label-md text-on-surface-variant text-xs md:text-sm">Review pending check-ins and authorize game zone access.</p>
+                    <h3 class="font-headline-md text-on-surface uppercase mb-1 md:mb-2 text-lg md:text-xl">Game Zone Portal</h3>
+                    <p class="font-label-md text-on-surface-variant text-xs md:text-sm">Member check-in and staff authorization for game zone access.</p>
                 </div>
                 <div class="flex items-center gap-2 text-primary mt-4 font-label-md uppercase tracking-wider text-[10px] md:text-xs">
-                    Access Module <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    Access Portal <span class="material-symbols-outlined text-sm">arrow_forward</span>
                 </div>
             </a>
 
