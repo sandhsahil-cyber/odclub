@@ -32,6 +32,17 @@ function showError(msg) {
 
 // ON PAGE LOAD
 document.addEventListener('DOMContentLoaded', async () => {
+    // Authenticate anonymously
+    firebase.auth().onAuthStateChanged((user) => {
+        if (!user) {
+            firebase.auth().signInAnonymously().catch((error) => {
+                console.error("Anonymous auth failed:", error);
+                if (error.code === 'auth/operation-not-allowed') {
+                    showError("Admin Error: Please enable 'Anonymous' Sign-in in Firebase Authentication!");
+                }
+            });
+        }
+    });
     const urlParams = new URLSearchParams(window.location.search);
     currentToken = urlParams.get('token');
 

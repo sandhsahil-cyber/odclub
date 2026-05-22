@@ -4,6 +4,18 @@ let currentToken = null;
 let pollingInterval = null;
 let countdownInterval = null;
 
+// Authenticate anonymously so Firebase Security Rules don't block queries
+firebase.auth().onAuthStateChanged((user) => {
+    if (!user) {
+        firebase.auth().signInAnonymously().catch((error) => {
+            console.error("Anonymous auth failed:", error);
+            if (error.code === 'auth/operation-not-allowed') {
+                alert("Admin Error: You must enable 'Anonymous' Sign-in method in your Firebase Authentication Console!");
+            }
+        });
+    }
+});
+
 // DOM Elements
 const sectionButtons = document.getElementById('section-buttons');
 const sectionInput = document.getElementById('section-input');
