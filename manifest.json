@@ -1,11 +1,11 @@
 {
-  "name": "Gym Entry System",
-  "short_name": "GymEntry",
-  "description": "Member Self Check-in System",
+  "name": "OD Club App",
+  "short_name": "OD Club",
+  "description": "OD Club Management and Check-In System",
   "start_url": "/index.html",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#000000",
+  "background_color": "#131313",
+  "theme_color": "#131313",
   "icons": [
     {
       "src": "/images/icon-192.png",
