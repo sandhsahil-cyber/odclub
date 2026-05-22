@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Game Zone Scanner | OD Club</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Oswald:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#474646",
+                        "tertiary-container": "#649d75",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#e5e2e1",
+                        "tertiary-fixed-dim": "#98d4a8",
+                        "surface-container": "#1f1f1f",
+                        "primary-fixed": "#ffd9dd",
+                        "on-primary": "#551e29",
+                        "surface-bright": "#393939",
+                        "on-error": "#690005",
+                        "surface-container-low": "#1b1b1b",
+                        "inverse-on-surface": "#303030",
+                        "secondary": "#c9c6c5",
+                        "on-tertiary-fixed-variant": "#16512f",
+                        "secondary-fixed-dim": "#c9c6c5",
+                        "on-surface": "#e2e2e2",
+                        "inverse-surface": "#e2e2e2",
+                        "on-secondary": "#313030",
+                        "on-tertiary-container": "#003118",
+                        "surface-dim": "#131313",
+                        "on-primary-fixed-variant": "#70343e",
+                        "outline-variant": "#524345",
+                        "inverse-primary": "#8c4b55",
+                        "secondary-container": "#4a4949",
+                        "surface-tint": "#ffb2bc",
+                        "surface-container-highest": "#353535",
+                        "on-surface-variant": "#d7c1c3",
+                        "tertiary": "#98d4a8",
+                        "on-primary-container": "#4c1722",
+                        "tertiary-fixed": "#b4f1c3",
+                        "on-secondary-container": "#bab8b7",
+                        "on-background": "#e2e2e2",
+                        "outline": "#9f8c8e",
+                        "surface-variant": "#353535",
+                        "error": "#ffb4ab",
+                        "on-tertiary-fixed": "#00210e",
+                        "surface": "#131313",
+                        "primary": "#ffb2bc",
+                        "surface-container-high": "#2a2a2a",
+                        "on-tertiary": "#00391d",
+                        "background": "#131313",
+                        "primary-container": "#c77b86",
+                        "error-container": "#93000a",
+                        "primary-fixed-dim": "#ffb2bc",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-primary-fixed": "#3a0915"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-desktop": "48px",
+                        "unit": "8px",
+                        "margin-mobile": "16px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Oswald"],
+                        "headline-md": ["Oswald"],
+                        "display-lg": ["Oswald"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Oswald"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.03em", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "0.02em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glow-primary {
+            box-shadow: 0 0 15px rgba(255, 178, 188, 0.3);
+        }
+        .scanner-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ffb2bc, transparent);
+            animation: scan 2.5s ease-in-out infinite;
+        }
+        @keyframes scan {
+            0% { top: 0%; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+        .encryption-pulse {
+            animation: pulse-glow 2s infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md overflow-x-hidden">
+<!-- Top App Bar -->
+<header class="bg-background fixed top-0 w-full z-50 border-b border-outline-variant/30">
+<div class="flex justify-between items-center px-4 md:px-margin-desktop py-unit w-full max-w-container-max mx-auto">
+<button class="text-primary hover:glow-primary transition-all p-2 flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-primary uppercase tracking-widest">OD Club</h1>
+<button class="text-primary hover:glow-primary transition-all p-2 flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-24 pb-32 px-4 max-w-container-max mx-auto w-full">
+<!-- Live Feed Portal -->
+<section class="relative w-full max-w-md mx-auto aspect-[3/4] rounded-xl overflow-hidden border border-primary/20 bg-surface-container-lowest shadow-2xl">
+<!-- Background Image (Mock Camera Feed) -->
+<div class="absolute inset-0 bg-cover bg-center opacity-60" data-alt="A moody, high-tech interior of a futuristic gaming lounge captured through a low-light camera lens. The scene is dominated by deep blacks and charcoals with sharp rose gold neon accents highlighting architectural edges and high-end computer hardware. There is a sense of mystery and sophisticated technology in a minimalist, prestigious setting with soft cinematic smoke." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBslqXlL_pwvsAAqNVBRM6N4joDJUTN08WE7Bcx8qlwaF4bwkf4FJaHT0PGQbzWNvo25vBYTlOtHLp1mTEeD3h4-XkNZPoZ9WghF5uKoxW8MPtff4prqNcOFPrc_Jsf0WquhL0eLGLo40cP4y-NzVV07rsie930BBqD8rSZzvXmdiX7W_mW7W4Y8NJKjjoF9SFGkKCR5rBupT-VP78WEGD3J2XDm8N6KffqNq8_4a08v8Vj0vHpXMKN4vGIFDyUD05L6pohSLB7o6Y')">
+</div>
+<!-- UI Overlays -->
+<div class="absolute inset-0 p-6 flex flex-col justify-between pointer-events-none">
+<!-- Top Status Rows -->
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container/80 backdrop-blur-md rounded border border-primary/30">
+<span class="w-2 h-2 rounded-full bg-primary encryption-pulse"></span>
+<span class="font-label-md text-label-md text-primary tracking-widest uppercase">ENCRYPTED</span>
+</div>
+<span class="font-label-md text-[10px] text-on-surface-variant/70 pl-1">CHANNEL: NEXUS-04</span>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="font-label-md text-label-md text-on-surface">120 FPS</span>
+<span class="font-label-md text-label-md text-on-surface">4K UHD</span>
+</div>
+</div>
+<!-- Central Scanning Frame -->
+<div class="relative flex-grow flex items-center justify-center">
+<div class="w-64 h-64 border-2 border-primary/40 rounded-3xl relative">
+<!-- Corner Accents -->
+<div class="absolute -top-1 -left-1 w-6 h-6 border-t-4 border-l-4 border-primary rounded-tl-xl"></div>
+<div class="absolute -top-1 -right-1 w-6 h-6 border-t-4 border-r-4 border-primary rounded-tr-xl"></div>
+<div class="absolute -bottom-1 -left-1 w-6 h-6 border-b-4 border-l-4 border-primary rounded-bl-xl"></div>
+<div class="absolute -bottom-1 -right-1 w-6 h-6 border-b-4 border-r-4 border-primary rounded-br-xl"></div>
+<!-- Scanning Line -->
+<div class="scanner-line absolute left-0 right-0"></div>
+</div>
+</div>
+<!-- Bottom Status -->
+<div class="flex flex-col gap-4">
+<div class="flex justify-between items-center bg-surface-container/80 backdrop-blur-md p-3 rounded-lg border border-primary/20">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary font-bold">Scanning...</span>
+<span class="text-[10px] text-on-surface-variant/80">ALIGN QR TO NEXUS FRAME</span>
+</div>
+<div class="w-24 h-1 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary transition-all duration-300" id="progress-bar" style="width: 45%;"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Action Controls -->
+<section class="mt-8 grid grid-cols-2 gap-4 max-w-md mx-auto">
+<button class="flex items-center justify-center gap-3 py-4 rounded-xl border border-primary/40 text-primary bg-surface-container-lowest hover:bg-primary/10 transition-all active:scale-95 group">
+<span class="material-symbols-outlined group-hover:glow-primary" data-icon="flashlight_on">flashlight_on</span>
+<span class="font-label-md text-label-md font-bold uppercase tracking-widest">FLASH</span>
+</button>
+<button class="flex items-center justify-center gap-3 py-4 rounded-xl border border-primary/40 text-primary bg-surface-container-lowest hover:bg-primary/10 transition-all active:scale-95 group">
+<span class="material-symbols-outlined group-hover:glow-primary" data-icon="history">history</span>
+<span class="font-label-md text-label-md font-bold uppercase tracking-widest">HISTORY</span>
+</button>
+</section>
+<!-- Descriptive Text -->
+<section class="mt-12 text-center max-w-sm mx-auto">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2">GAME ZONE ENTRY</h2>
+<p class="font-body-md text-body-md text-on-surface-variant/80">Scan your unique Nexus Member ID at any designated zone portal to unlock exclusive hardware and tournament brackets.</p>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-surface-container-lowest border-t border-primary/20">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-variant/10 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-variant/10 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="fitness_center">fitness_center</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-primary bg-primary rounded-xl p-2 shadow-[0_0_15px_rgba(255,178,188,0.3)] transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="qr_code_scanner" style="font-variation-settings: 'FILL' 1;">qr_code_scanner</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-variant/10 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="sports_esports">sports_esports</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-variant/10 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="workspace_premium">workspace_premium</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for the progress bar animation
+        const progressBar = document.getElementById('progress-bar');
+        let width = 45;
+        setInterval(() => {
+            width = (width + (Math.random() * 5)) % 100;
+            progressBar.style.width = width + '%';
+        }, 1000);
+
+        // Simulated haptic feedback on buttons
+        document.querySelectorAll('button, a').forEach(el => {
+            el.addEventListener('click', () => {
+                if (window.navigator.vibrate) {
+                    window.navigator.vibrate(10);
+                }
+            });
+        });
+    </script>
+</body></html>

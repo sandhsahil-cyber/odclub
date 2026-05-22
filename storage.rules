@@ -1,0 +1,37 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    function isLoggedIn() {
+      return request.auth != null;
+    }
+    
+    function getUserEmail() {
+      return request.auth.token.email;
+    }
+
+    function isClubOwner() {
+      return isLoggedIn() && getUserEmail() == 'clubowner@gym.com';
+    }
+
+    function isGymScanner() {
+      return isLoggedIn() && getUserEmail() == 'gymadmin@gym.com';
+    }
+
+    function isGameZoneScanner() {
+      return isLoggedIn() && getUserEmail() == 'gameadmin@gym.com';
+    }
+
+    // Members profile photos: Club Owner can read/write, scanners can read
+    match /members/{allPaths=**} {
+      allow read: if isClubOwner() || isGymScanner() || isGameZoneScanner();
+      allow write: if isClubOwner();
+    }
+
+    // Entries captured live photos: Club Owner can read/write, scanners can create (upload)
+    match /entries/{allPaths=**} {
+      allow read: if isClubOwner() || isGymScanner() || isGameZoneScanner();
+      allow write: if isClubOwner() || isGymScanner() || isGameZoneScanner();
+    }
+  }
+}

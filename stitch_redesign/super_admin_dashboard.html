@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Dream Club | Super Admin</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=Oswald:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#e5e2e1",
+                    "tertiary-container": "#24a09d",
+                    "primary-fixed-dim": "#ffb3ad",
+                    "on-error": "#690005",
+                    "on-secondary-fixed-variant": "#584140",
+                    "surface-container-low": "#1c1b1b",
+                    "primary-fixed": "#ffdad7",
+                    "surface-container-highest": "#353534",
+                    "primary": "#ffb3ad",
+                    "primary-container": "#ff5451",
+                    "error-container": "#93000a",
+                    "error": "#ffb4ab",
+                    "secondary-fixed-dim": "#e0bfbd",
+                    "on-secondary-container": "#d1b1b0",
+                    "inverse-surface": "#e5e2e1",
+                    "secondary": "#e0bfbd",
+                    "surface-dim": "#131313",
+                    "surface-bright": "#3a3939",
+                    "inverse-on-surface": "#313030",
+                    "surface-variant": "#353534",
+                    "on-secondary-fixed": "#291716",
+                    "on-tertiary-fixed": "#00201f",
+                    "surface-container-lowest": "#0e0e0e",
+                    "on-primary-fixed-variant": "#930013",
+                    "background": "#131313",
+                    "on-secondary": "#402b2b",
+                    "surface-container": "#201f1f",
+                    "tertiary-fixed-dim": "#69d8d4",
+                    "on-tertiary-fixed-variant": "#00504e",
+                    "secondary-container": "#5b4343",
+                    "on-primary": "#68000a",
+                    "on-tertiary": "#003736",
+                    "on-error-container": "#ffdad6",
+                    "secondary-fixed": "#fddad9",
+                    "on-background": "#e5e2e1",
+                    "on-surface-variant": "#e4beba",
+                    "tertiary": "#69d8d4",
+                    "on-primary-fixed": "#410004",
+                    "on-tertiary-container": "#00302e",
+                    "surface-tint": "#ffb3ad",
+                    "outline-variant": "#5b403e",
+                    "tertiary-fixed": "#87f4f0",
+                    "inverse-primary": "#b91a24",
+                    "surface": "#131313",
+                    "outline": "#ab8986",
+                    "on-primary-container": "#5c0008",
+                    "surface-container-high": "#2a2a2a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "stack-lg": "48px",
+                    "stack-md": "24px",
+                    "stack-sm": "8px",
+                    "unit": "4px",
+                    "container-margin": "20px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Oswald"],
+                    "headline-md": ["Oswald"],
+                    "headline-lg": ["Oswald"],
+                    "label-caps": ["Inter"],
+                    "headline-lg-mobile": ["Oswald"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "headline-lg": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .scarlet-glow {
+            box-shadow: 0px 10px 30px rgba(255, 179, 173, 0.1);
+        }
+        .active-glow {
+            text-shadow: 0 0 8px rgba(255, 179, 173, 0.8);
+        }
+        .chart-container {
+            mask-image: linear-gradient(to right, black 80%, transparent);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md antialiased overflow-x-hidden pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-container-margin h-16 bg-background dark:bg-background border-b border-outline-variant">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-2xl">grid_view</span>
+<h1 class="font-headline-md text-headline-md uppercase font-bold text-primary tracking-tighter">SUPER ADMIN</h1>
+</div>
+<div class="flex items-center">
+<span class="material-symbols-outlined text-primary text-2xl">account_circle</span>
+</div>
+</header>
+<main class="mt-20 px-container-margin space-y-stack-md">
+<!-- Live Status Bar -->
+<div class="flex justify-between items-center bg-surface-container-low p-4 rounded-lg border border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-container opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-primary-container"></span>
+</span>
+<span class="font-label-caps text-label-caps text-primary uppercase">LIVE SYSTEM STATUS</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface opacity-60">UPTIME: 99.9%</span>
+</div>
+<!-- Real-Time Stats Bento Grid -->
+<div class="grid grid-cols-2 gap-4">
+<!-- Active Members -->
+<div class="col-span-1 bg-surface-container p-5 rounded-lg border border-outline-variant flex flex-col justify-between h-40">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary">groups</span>
+<span class="text-[10px] font-label-caps text-primary border border-primary px-1 rounded">LIVE</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase opacity-70">Active Members</p>
+<h2 class="font-headline-md text-headline-md text-on-surface mt-1">1,284</h2>
+</div>
+</div>
+<!-- Game Zone Usage -->
+<div class="col-span-1 bg-surface-container p-5 rounded-lg border border-outline-variant flex flex-col justify-between h-40">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary">sports_esports</span>
+<span class="text-[10px] font-label-caps text-on-surface-variant">88% CAP</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase opacity-70">Game Zone</p>
+<h2 class="font-headline-md text-headline-md text-on-surface mt-1">42/48</h2>
+</div>
+</div>
+<!-- Daily Revenue -->
+<div class="col-span-2 bg-surface-container-high p-5 rounded-lg border border-primary/20 flex items-center justify-between">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase opacity-70">Daily Revenue (USD)</p>
+<h2 class="font-display-lg text-[32px] font-bold text-primary mt-1">$14,205.50</h2>
+</div>
+<div class="text-right">
+<span class="material-symbols-outlined text-primary-container text-4xl" style="font-variation-settings: 'FILL' 1;">payments</span>
+<p class="text-[10px] text-primary mt-1 font-label-caps">+12.4% vs YEST</p>
+</div>
+</div>
+</div>
+<!-- Operations Metrics Chart -->
+<section class="bg-surface-container p-6 rounded-lg border border-outline-variant">
+<div class="flex justify-between items-end mb-6">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface uppercase">Operations Metrics</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant opacity-60">7-DAY PERFORMANCE CYCLE</p>
+</div>
+<div class="flex gap-2">
+<button class="bg-outline-variant p-2 rounded-sm text-on-surface transition-transform active:scale-95">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Custom SVG Chart -->
+<div class="relative h-48 w-full mt-4 chart-container overflow-hidden">
+<svg class="w-full h-full" viewbox="0 0 400 150">
+<!-- Grid Lines -->
+<line stroke="#1e1e1e" stroke-width="1" x1="0" x2="400" y1="30" y2="30"></line>
+<line stroke="#1e1e1e" stroke-width="1" x1="0" x2="400" y1="75" y2="75"></line>
+<line stroke="#1e1e1e" stroke-width="1" x1="0" x2="400" y1="120" y2="120"></line>
+<!-- Area Fill -->
+<path d="M0,130 L50,110 L100,120 L150,80 L200,95 L250,40 L300,60 L350,20 L400,30 L400,150 L0,150 Z" fill="url(#grad1)" opacity="0.15"></path>
+<!-- Line Path -->
+<path d="M0,130 L50,110 L100,120 L150,80 L200,95 L250,40 L300,60 L350,20 L400,30" fill="none" stroke="#ffb3ad" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<!-- Highlight Point -->
+<circle cx="350" cy="20" fill="#ffb3ad" r="4"></circle>
+<circle class="animate-pulse" cx="350" cy="20" fill="#ffb3ad" opacity="0.3" r="8"></circle>
+<defs>
+<lineargradient id="grad1" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#ff5451;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#131313;stop-opacity:0"></stop>
+</lineargradient>
+</defs>
+</svg>
+</div>
+<div class="flex justify-between mt-4">
+<span class="font-label-caps text-[10px] text-on-surface-variant opacity-50">MON</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant opacity-50">TUE</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant opacity-50">WED</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant opacity-50">THU</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant opacity-50">FRI</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant opacity-50">SAT</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant opacity-50">SUN</span>
+</div>
+</section>
+<!-- Command Shortcuts -->
+<section class="space-y-4">
+<h4 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Tactical Actions</h4>
+<div class="grid grid-cols-1 gap-3">
+<button class="flex items-center justify-between p-4 bg-surface-container-low border border-outline-variant rounded-lg transition-colors hover:bg-surface-container-highest active:scale-[0.98]">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">broadcast_on_home</span>
+<span class="font-body-md text-on-surface uppercase tracking-tight">Broadcast Message</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</button>
+<button class="flex items-center justify-between p-4 bg-surface-container-low border border-outline-variant rounded-lg transition-colors hover:bg-surface-container-highest active:scale-[0.98]">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">lock_reset</span>
+<span class="font-body-md text-on-surface uppercase tracking-tight">Security Protocol Override</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</button>
+<button class="flex items-center justify-between p-4 bg-surface-container-low border border-outline-variant rounded-lg transition-colors hover:bg-surface-container-highest active:scale-[0.98]">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">emergency_home</span>
+<span class="font-body-md text-on-surface uppercase tracking-tight">Maintenance Mode</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</button>
+</div>
+</section>
+<!-- Staff Log Visual -->
+<div class="relative overflow-hidden rounded-xl border border-outline-variant h-40 group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A futuristic cybersecurity server room with glowing red circuitry and high-tech digital displays. The environment is dark, noir-inspired with intense scarlet accents and floating holographic data streams. The aesthetic is clean, aggressive, and premium, suggesting an elite command center with sharp geometric precision and deep cinematic shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZM8MX8kT_bBYgdu3wWu5kepQiYs2C54DAEh9rNzHdOFzXPqu9HtoyMNUf53rQLdj4yKAV4JjKL9mwhy03wp3z2x6vp0-u0H1SspuDNfLnrJHKKPJBoLcPO-Inz6a4Em3fMjlsYUqQm4jR3ZuAwXWntIdLaO2s4W5zUy9XFMJrsCd2laCod8lYy1-L8sO53n9odPI0vAHwTUDgJihHLkTYtV6LigdVFCUacwxC5Z9a55DRZa3CJA2DXWgFik93K8GRIpFMVa3uv-I"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#131313] via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+<div>
+<h5 class="font-headline-md text-headline-md text-white uppercase leading-none">Access Logs</h5>
+<p class="font-label-caps text-[10px] text-primary">14 NEW ATTEMPTS SECURED</p>
+</div>
+<button class="bg-primary text-on-primary px-4 py-1 font-label-caps text-[10px] rounded uppercase font-bold">Review</button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 pb-safe h-20 bg-surface-container-low dark:bg-surface-container-low border-t border-outline-variant shadow-[0px_-10px_30px_rgba(255,179,173,0.1)] rounded-t-xl">
+<button class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 hover:opacity-100 transition-opacity active:translate-y-[-2px] transition-transform">
+<span class="material-symbols-outlined">qr_code_scanner</span>
+<span class="font-label-caps text-[10px] uppercase mt-1">SCAN</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 hover:opacity-100 transition-opacity active:translate-y-[-2px] transition-transform">
+<span class="material-symbols-outlined">fitness_center</span>
+<span class="font-label-caps text-[10px] uppercase mt-1">GYM</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 hover:opacity-100 transition-opacity active:translate-y-[-2px] transition-transform">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-caps text-[10px] uppercase mt-1">HOME</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 hover:opacity-100 transition-opacity active:translate-y-[-2px] transition-transform">
+<span class="material-symbols-outlined">sports_esports</span>
+<span class="font-label-caps text-[10px] uppercase mt-1">GAME</span>
+</button>
+<button class="flex flex-col items-center justify-center text-primary drop-shadow-[0_0_8px_rgba(255,179,173,0.8)] active:translate-y-[-2px] transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-label-caps text-[10px] uppercase mt-1">PRO</span>
+</button>
+</nav>
+<script>
+        // Micro-interaction for numeric counting effect
+        document.addEventListener('DOMContentLoaded', () => {
+            const counters = document.querySelectorAll('h2');
+            counters.forEach(counter => {
+                const text = counter.innerText;
+                if(text.includes(',') || text.includes('$')) {
+                    // Simple highlight effect on tap
+                    counter.parentElement.addEventListener('touchstart', () => {
+                        counter.classList.add('text-primary-container');
+                        setTimeout(() => counter.classList.remove('text-primary-container'), 300);
+                    });
+                }
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gym Scanner | OD Club</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Oswald:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed-variant": "#474646",
+                      "tertiary-container": "#649d75",
+                      "on-error-container": "#ffdad6",
+                      "secondary-fixed": "#e5e2e1",
+                      "tertiary-fixed-dim": "#98d4a8",
+                      "surface-container": "#1f1f1f",
+                      "primary-fixed": "#ffd9dd",
+                      "on-primary": "#551e29",
+                      "surface-bright": "#393939",
+                      "on-error": "#690005",
+                      "surface-container-low": "#1b1b1b",
+                      "inverse-on-surface": "#303030",
+                      "secondary": "#c9c6c5",
+                      "on-tertiary-fixed-variant": "#16512f",
+                      "secondary-fixed-dim": "#c9c6c5",
+                      "on-surface": "#e2e2e2",
+                      "inverse-surface": "#e2e2e2",
+                      "on-secondary": "#313030",
+                      "on-tertiary-container": "#003118",
+                      "surface-dim": "#131313",
+                      "on-primary-fixed-variant": "#70343e",
+                      "outline-variant": "#524345",
+                      "inverse-primary": "#8c4b55",
+                      "secondary-container": "#4a4949",
+                      "surface-tint": "#ffb2bc",
+                      "surface-container-highest": "#353535",
+                      "on-surface-variant": "#d7c1c3",
+                      "tertiary": "#98d4a8",
+                      "on-primary-container": "#4c1722",
+                      "tertiary-fixed": "#b4f1c3",
+                      "on-secondary-container": "#bab8b7",
+                      "on-background": "#e2e2e2",
+                      "outline": "#9f8c8e",
+                      "surface-variant": "#353535",
+                      "error": "#ffb4ab",
+                      "on-tertiary-fixed": "#00210e",
+                      "surface": "#131313",
+                      "primary": "#ffb2bc",
+                      "surface-container-high": "#2a2a2a",
+                      "on-tertiary": "#00391d",
+                      "background": "#131313",
+                      "primary-container": "#c77b86",
+                      "error-container": "#93000a",
+                      "primary-fixed-dim": "#ffb2bc",
+                      "on-secondary-fixed": "#1c1b1b",
+                      "surface-container-lowest": "#0e0e0e",
+                      "on-primary-fixed": "#3a0915"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "margin-desktop": "48px",
+                      "unit": "8px",
+                      "margin-mobile": "16px",
+                      "container-max": "1280px"
+              },
+              "fontFamily": {
+                      "label-md": ["Inter"],
+                      "headline-lg-mobile": ["Oswald"],
+                      "headline-md": ["Oswald"],
+                      "display-lg": ["Oswald"],
+                      "body-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "headline-lg": ["Oswald"]
+              },
+              "fontSize": {
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.03em", "fontWeight": "500"}],
+                      "headline-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "0.02em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: #131313;
+            color: #e2e2e2;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glow-primary {
+            box-shadow: 0 0 15px rgba(255, 178, 188, 0.3);
+        }
+        .scanner-line {
+            animation: scan 3s ease-in-out infinite;
+        }
+        @keyframes scan {
+            0%, 100% { top: 0%; opacity: 0; }
+            50% { top: 100%; opacity: 1; }
+        }
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255, 178, 188, 0.1), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md overflow-x-hidden">
+<!-- Top App Bar -->
+<header class="bg-background fixed top-0 left-0 w-full z-50 border-b border-outline-variant/30">
+<div class="flex justify-between items-center px-6 md:px-margin-desktop py-4 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform" data-icon="menu">menu</span>
+<h1 class="font-headline-md text-headline-md tracking-wider text-primary uppercase">OD Club</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors cursor-pointer" data-icon="account_circle">account_circle</span>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-32 min-h-screen px-4 md:px-margin-desktop max-w-screen-xl mx-auto">
+<!-- Header Section -->
+<div class="mb-12 text-center md:text-left">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary uppercase tracking-tight mb-2">Gym Entry Scanner</h2>
+<p class="text-on-surface-variant font-label-md max-w-md mx-auto md:mx-0">Align your digital member ID within the rose gold frame to authorize access to the Nexus facilities.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+<!-- Left Side: Scanner Camera Container -->
+<div class="lg:col-span-7 w-full aspect-square md:aspect-video relative rounded-2xl overflow-hidden bg-surface-container-lowest border border-outline-variant/20">
+<!-- Background Image (Simulated Camera View) -->
+<div class="absolute inset-0 z-0">
+<img alt="Interior view of a luxury minimalist gym" class="w-full h-full object-cover opacity-40 grayscale" data-alt="A cinematic, wide-angle shot of a high-end, luxury gym interior at night. The space features black marble floors, minimalist weight machines, and dramatic rose gold accent lighting. The overall atmosphere is exclusive, silent, and prestigious, using a dark mode aesthetic with deep charcoal tones and sharp highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDglD7Dwdr6hs-yJ71lAUb1O4ISzuBnJzO722WaUUJQHc9OwpX3Voh915eplCa1rZcFQMUKfI9_ebonizdYTO19wM9JPrKdQHqSgRhU36EaXitjEwXH5quZ9-HqWE4_KfPficVZXJxn3ZbPGytvio0qCGEUg861gDBJe1eX6FXiBtwk9zXMBJ6qXYJDrsOABBg-oSzXijAmfGfcUnU87x3kntcTmjc3OQJKKbk_-q9ucNzuV2vd0QpM95qV9vkLw94bThCdnPSgKP0"/>
+</div>
+<!-- Scanning Overlay -->
+<div class="absolute inset-0 z-10 flex items-center justify-center p-12">
+<div class="relative w-full h-full max-w-sm aspect-square border-2 border-dashed border-primary/50 rounded-3xl flex items-center justify-center">
+<!-- Corners -->
+<div class="absolute -top-1 -left-1 w-12 h-12 border-t-4 border-l-4 border-primary rounded-tl-3xl"></div>
+<div class="absolute -top-1 -right-1 w-12 h-12 border-t-4 border-r-4 border-primary rounded-tr-3xl"></div>
+<div class="absolute -bottom-1 -left-1 w-12 h-12 border-b-4 border-l-4 border-primary rounded-bl-3xl"></div>
+<div class="absolute -bottom-1 -right-1 w-12 h-12 border-b-4 border-r-4 border-primary rounded-br-3xl"></div>
+<!-- Animated Scan Line -->
+<div class="scanner-line absolute left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent blur-[2px]"></div>
+<div class="text-center opacity-60">
+<span class="material-symbols-outlined text-6xl text-primary mb-2 block" data-icon="qr_code_scanner">qr_code_scanner</span>
+<p class="font-label-md text-primary tracking-widest uppercase">Searching...</p>
+</div>
+</div>
+</div>
+<!-- HUD Elements -->
+<div class="absolute bottom-6 left-6 right-6 z-20 flex justify-between items-end">
+<div class="space-y-1">
+<div class="flex items-center gap-2 text-primary">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-md tracking-tighter uppercase">Nexus OS v2.4</span>
+</div>
+<p class="text-[10px] text-on-surface-variant/60 font-mono">EN-7734-X // SCAN_ACTIVE</p>
+</div>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-full bg-surface-container/80 border border-primary/20 flex items-center justify-center hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="flash_on">flash_on</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-surface-container/80 border border-primary/20 flex items-center justify-center hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="flip_camera_ios">flip_camera_ios</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Right Side: Member ID & Status -->
+<div class="lg:col-span-5 space-y-8">
+<!-- Member ID Card -->
+<div class="bg-surface-container-lowest border-t-2 border-primary rounded-xl p-8 relative overflow-hidden group hover:glow-primary transition-all duration-500">
+<div class="shimmer absolute inset-0 opacity-20 pointer-events-none"></div>
+<div class="flex justify-between items-start mb-10">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface leading-tight uppercase">Elite Member</h3>
+<p class="text-on-surface-variant font-label-md">Nexus Platinum Tier</p>
+</div>
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="workspace_premium" data-weight="fill" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<div class="space-y-6">
+<div class="flex justify-between items-end">
+<div>
+<p class="text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-1">Membership ID</p>
+<p class="font-headline-md text-headline-md text-primary tracking-widest">DC-99281-X</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-1">Exp Date</p>
+<p class="font-body-md text-on-surface">12 / 2026</p>
+</div>
+</div>
+<div class="pt-6 border-t border-outline-variant/20 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden border border-primary/40 p-0.5">
+<img alt="Member Portrait" class="w-full h-full object-cover rounded-full grayscale" data-alt="A professional headshot of a sophisticated male in his 30s with a sharp haircut and subtle stubble. He is set against a dark, dramatic background with a soft rose gold rim light on one side of his face. The style is high-end editorial, clean, and perfectly aligned with a premium dark-mode UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoxDFan4CEw21YEsO5V1ens8NrjR_YrL_arpF5_5zYuJjaTlnpHsAXN4a_e8sJ0SF3nG11c7maqeiCyyMagRqvwlBnwP1hVCrXQGJC4C4CxNQxTowF3YaORjvNns6HwfMewGnuFitGAWjcGe_SDHMFi8fWatqvxwZKA5bX_8zBHsH9h02sB54fCFBesqzLx6dKfnUZHJ8btjy3vyZSfSsSTzJ8qENw_aPunOZ35ZZrETKjacBRu6RMCB6cYGpgVhlgjKHfyckH68A"/>
+</div>
+<div>
+<p class="font-body-lg text-on-surface font-semibold">Julian V. Sterling</p>
+<p class="text-label-md text-primary/80">Authorized Access</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Readiness Indicators -->
+<div class="space-y-4">
+<p class="text-label-md text-on-surface-variant uppercase tracking-widest border-b border-outline-variant/10 pb-2">System Diagnostics</p>
+<div class="flex items-center justify-between p-4 bg-surface-container rounded-lg border border-outline-variant/10">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="wifi">wifi</span>
+<span class="font-label-md text-on-surface">Nexus Sync Status</span>
+</div>
+<span class="text-label-md text-primary font-bold">READY</span>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container rounded-lg border border-outline-variant/10">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="lock_open">lock_open</span>
+<span class="font-label-md text-on-surface">Gate Authentication</span>
+</div>
+<span class="text-label-md text-primary font-bold">STANDBY</span>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container rounded-lg border border-outline-variant/10">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="thermostat">thermostat</span>
+<span class="font-label-md text-on-surface">Facility Occupancy</span>
+</div>
+<span class="text-label-md text-on-surface-variant">14% (LOW)</span>
+</div>
+</div>
+<!-- Actions -->
+<button class="w-full bg-primary text-on-primary font-headline-md text-headline-md py-4 rounded-lg uppercase tracking-widest hover:brightness-110 active:scale-[0.98] transition-all glow-primary">
+                    Manual Entry
+                </button>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface-container-lowest border-t border-primary/20 md:hidden">
+<div class="flex justify-around items-center px-4 py-3">
+<div class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="fitness_center">fitness_center</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-primary bg-primary rounded-xl p-2 shadow-[0_0_15px_rgba(255,178,188,0.3)] active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="qr_code_scanner">qr_code_scanner</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="sports_esports">sports_esports</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="workspace_premium">workspace_premium</span>
+</div>
+</div>
+</nav>
+<script>
+        // Simple micro-interaction for the scanner line simulation
+        document.addEventListener('DOMContentLoaded', () => {
+            const scannerContainer = document.querySelector('.scanner-line');
+            if (scannerContainer) {
+                // Potential logic for updating scanner status text
+                setTimeout(() => {
+                    const statusText = document.querySelector('.tracking-widest');
+                    if (statusText) statusText.textContent = 'Analyzing...';
+                }, 4000);
+            }
+        });
+    </script>
+</body></html>

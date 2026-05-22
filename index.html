@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>OD Club Portal</title>
+    <link rel="manifest" href="/manifest.json">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#474646", "tertiary-container": "#649d75", "on-error-container": "#ffdad6",
+                        "surface-container": "#1f1f1f", "on-primary": "#551e29", "surface-bright": "#393939",
+                        "on-error": "#690005", "surface-container-low": "#1b1b1b", "inverse-on-surface": "#303030",
+                        "on-surface": "#e2e2e2", "inverse-surface": "#e2e2e2", "surface-dim": "#131313",
+                        "outline-variant": "#524345", "surface-tint": "#ffb2bc", "surface-container-highest": "#353535",
+                        "on-surface-variant": "#d7c1c3", "tertiary": "#98d4a8", "on-background": "#e2e2e2",
+                        "outline": "#9f8c8e", "surface-variant": "#353535", "error": "#ffb4ab",
+                        "surface": "#131313", "primary": "#ffb2bc", "surface-container-high": "#2a2a2a",
+                        "background": "#131313", "error-container": "#93000a", "surface-container-lowest": "#0e0e0e"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"], "headline-lg-mobile": ["Oswald"], "headline-md": ["Oswald"],
+                        "display-lg": ["Oswald"], "body-lg": ["Inter"], "body-md": ["Inter"], "headline-lg": ["Oswald"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #131313; color: #e2e2e2; min-height: max(884px, 100dvh); }
+        .glow-primary { box-shadow: 0 0 15px rgba(255, 178, 188, 0.3); }
+        .bento-card {
+            background-color: #0A0A0A; border-top: 2px solid rgba(183, 110, 121, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .bento-card:hover { border-top-color: #ffb2bc; box-shadow: 0 0 20px rgba(183, 110, 121, 0.1); transform: translateY(-4px); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen relative overflow-hidden">
+    <!-- Background overlay from designs -->
+    <div class="absolute inset-0 pointer-events-none opacity-[0.03] bg-[url('https://lh3.googleusercontent.com/aida-public/AB6AXuDglD7Dwdr6hs-yJ71lAUb1O4ISzuBnJzO722WaUUJQHc9OwpX3Voh915eplCa1rZcFQMUKfI9_ebonizdYTO19wM9JPrKdQHqSgRhU36EaXitjEwXH5quZ9-HqWE4_KfPficVZXJxn3ZbPGytvio0qCGEUg861gDBJe1eX6FXiBtwk9zXMBJ6qXYJDrsOABBg-oSzXijAmfGfcUnU87x3kntcTmjc3OQJKKbk_-q9ucNzuV2vd0QpM95qV9vkLw94bThCdnPSgKP0')] bg-cover mix-blend-overlay z-0"></div>
+
+    <header class="bg-background/80 backdrop-blur-md border-b border-outline-variant/30 sticky top-0 z-50">
+        <div class="flex justify-center md:justify-start items-center px-8 py-4 w-full max-w-7xl mx-auto h-20">
+            <h1 class="font-headline-lg text-primary uppercase tracking-widest text-2xl flex items-center gap-2">
+                <span class="material-symbols-outlined">workspace_premium</span>
+                OD Club
+            </h1>
+        </div>
+    </header>
+
+    <main class="flex-grow w-full max-w-7xl mx-auto px-8 py-12 z-10 relative">
+        <div class="mb-12 text-center md:text-left">
+            <h2 class="font-headline-lg text-on-surface uppercase mb-2 text-4xl">System Portal</h2>
+            <p class="font-body-md text-on-surface-variant tracking-wide">Select your destination module to authenticate and proceed.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <!-- Member Check-in -->
+            <a href="/member-checkin.html" class="bento-card p-8 rounded-xl h-64 group cursor-pointer">
+                <div>
+                    <span class="material-symbols-outlined text-primary text-4xl mb-4 group-hover:scale-110 transition-transform">qr_code_scanner</span>
+                    <h3 class="font-headline-md text-on-surface uppercase mb-2">Member Check-in</h3>
+                    <p class="font-label-md text-on-surface-variant text-sm">Self-service terminal for members to request facility access.</p>
+                </div>
+                <div class="flex items-center gap-2 text-primary mt-4 font-label-md uppercase tracking-wider text-xs">
+                    Start <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </div>
+            </a>
+
+            <!-- Gym Admin -->
+            <a href="/gym-admin.html" class="bento-card p-8 rounded-xl h-64 group cursor-pointer">
+                <div>
+                    <span class="material-symbols-outlined text-primary text-4xl mb-4 group-hover:scale-110 transition-transform">fitness_center</span>
+                    <h3 class="font-headline-md text-on-surface uppercase mb-2">Gym Admin</h3>
+                    <p class="font-label-md text-on-surface-variant text-sm">Review pending check-ins and authorize gym access.</p>
+                </div>
+                <div class="flex items-center gap-2 text-primary mt-4 font-label-md uppercase tracking-wider text-xs">
+                    Access Module <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </div>
+            </a>
+
+            <!-- Game Zone Admin -->
+            <a href="/gamezone-admin.html" class="bento-card p-8 rounded-xl h-64 group cursor-pointer">
+                <div>
+                    <span class="material-symbols-outlined text-primary text-4xl mb-4 group-hover:scale-110 transition-transform">sports_esports</span>
+                    <h3 class="font-headline-md text-on-surface uppercase mb-2">Game Zone Admin</h3>
+                    <p class="font-label-md text-on-surface-variant text-sm">Review pending check-ins and authorize game zone access.</p>
+                </div>
+                <div class="flex items-center gap-2 text-primary mt-4 font-label-md uppercase tracking-wider text-xs">
+                    Access Module <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </div>
+            </a>
+
+            <!-- Club Owner Panel -->
+            <a href="/clubowner.html" class="bento-card p-8 rounded-xl h-64 group cursor-pointer border-l-4 border-l-primary">
+                <div>
+                    <span class="material-symbols-outlined text-primary text-4xl mb-4 group-hover:scale-110 transition-transform">admin_panel_settings</span>
+                    <h3 class="font-headline-md text-on-surface uppercase mb-2">Owner Panel</h3>
+                    <p class="font-label-md text-on-surface-variant text-sm">Real-time check-in monitoring, capacity metrics, and member management.</p>
+                </div>
+                <div class="flex items-center gap-2 text-primary mt-4 font-label-md uppercase tracking-wider text-xs">
+                    Access Module <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </div>
+            </a>
+            
+        </div>
+    </main>
+
+    <footer class="mt-auto py-8 border-t border-outline-variant/10 z-10 relative">
+        <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="font-label-md text-on-surface-variant uppercase tracking-widest text-xs">© 2024 OD Club CORP. ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js');
+            });
+        }
+    </script>
+</body>
+</html>

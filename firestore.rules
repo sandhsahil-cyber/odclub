@@ -1,0 +1,49 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper function to check if user is logged in
+    function isLoggedIn() {
+      return request.auth != null;
+    }
+    
+    // Helper function to check user email
+    function getUserEmail() {
+      return request.auth.token.email;
+    }
+
+    // Helper function to check if user is Club Owner
+    function isClubOwner() {
+      return isLoggedIn() && getUserEmail() == 'clubowner@gym.com';
+    }
+
+    // Helper function to check if user is Gym Scanner
+    function isGymScanner() {
+      return isLoggedIn() && getUserEmail() == 'gymadmin@gym.com';
+    }
+
+    // Helper function to check if user is Game Zone Scanner
+    function isGameZoneScanner() {
+      return isLoggedIn() && getUserEmail() == 'gameadmin@gym.com';
+    }
+
+    // Members collection
+    match /members/{memberId} {
+      // Club Owner has full read/write
+      // Gym Scanner and Game Zone Scanner can read members to verify credentials
+      allow read: if isClubOwner() || isGymScanner() || isGameZoneScanner();
+      allow write: if isClubOwner();
+    }
+
+    // Entries collection
+    match /entries/{entryId} {
+      // Club Owner has full read/write
+      // Gym Scanner can read and write gym entries
+      // Game Zone Scanner can read and write gamezone entries
+      allow read: if isClubOwner() || isGymScanner() || isGameZoneScanner();
+      allow create: if isClubOwner() 
+        || (isGymScanner() && request.resource.data.entryType == 'gym')
+        || (isGameZoneScanner() && request.resource.data.entryType == 'gamezone');
+      allow update, delete: if isClubOwner();
+    }
+  }
+}

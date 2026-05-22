@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Photo Upload | OD Club</title>
+    <link rel="manifest" href="/manifest.json">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <!-- Firebase Setup -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+    <script src="/js/firebase-config.js"></script>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                "surface-container": "#1f1f1f", "on-primary": "#551e29", "surface-bright": "#393939",
+                "on-error": "#690005", "surface-container-low": "#1b1b1b", "inverse-on-surface": "#303030",
+                "on-surface": "#e2e2e2", "inverse-surface": "#e2e2e2", "surface-dim": "#131313",
+                "outline-variant": "#524345", "surface-tint": "#ffb2bc", "surface-container-highest": "#353535",
+                "on-surface-variant": "#d7c1c3", "tertiary": "#98d4a8", "on-background": "#e2e2e2",
+                "outline": "#9f8c8e", "surface-variant": "#353535", "error": "#ffb4ab",
+                "surface": "#131313", "primary": "#ffb2bc", "surface-container-high": "#2a2a2a",
+                "background": "#131313", "error-container": "#93000a", "surface-container-lowest": "#0e0e0e"
+              },
+              "fontFamily": {
+                "label-md": ["Inter"], "headline-md": ["Oswald"], "body-md": ["Inter"], "headline-lg": ["Oswald"]
+              }
+            }
+          }
+        }
+    </script>
+    <style>
+        body { background-color: #131313; color: #e2e2e2; min-height: 100dvh; display: flex; flex-direction: column; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+        .glow-primary { box-shadow: 0 0 15px rgba(255, 178, 188, 0.3); }
+    </style>
+</head>
+<body class="font-body-md overflow-x-hidden">
+
+    <!-- HEADER -->
+    <header class="bg-background fixed top-0 left-0 w-full z-50 border-b border-outline-variant/30">
+        <div class="flex flex-col justify-center items-center py-3 w-full">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-primary text-3xl">workspace_premium</span>
+                <h1 class="font-headline-lg text-2xl tracking-wider text-primary uppercase">OD Club</h1>
+            </div>
+            <p class="text-on-surface-variant text-sm font-label-md mt-1 uppercase tracking-widest">Photo Verification</p>
+        </div>
+    </header>
+
+    <main class="pt-28 pb-12 flex-grow flex items-center justify-center px-4">
+        <div class="bg-surface-container border border-outline-variant/30 rounded-2xl p-6 w-full max-w-sm shadow-2xl relative overflow-hidden text-center">
+            
+            <!-- SECTION 1 - LOADING STATE -->
+            <div id="section-loading" class="py-12 flex flex-col items-center">
+                <span class="material-symbols-outlined animate-spin text-4xl text-primary mb-4">sync</span>
+                <p class="text-on-surface-variant text-lg">Verifying your check-in...</p>
+            </div>
+
+            <!-- SECTION 2 - MAIN CONTENT -->
+            <div id="section-main" class="hidden">
+                <h2 id="member-name-display" class="font-headline-md text-primary tracking-wider uppercase mb-1 text-2xl">--</h2>
+                <div id="entry-badge" class="inline-block bg-surface-container-lowest border border-primary/50 text-primary px-3 py-1 rounded-full text-xs font-headline-md uppercase tracking-widest mb-6">--</div>
+                
+                <p class="text-on-surface-variant text-sm mb-6">Please take a clear photo of your face</p>
+                
+                <div id="photo-container" class="relative w-full aspect-[3/4] bg-surface-container-lowest border border-outline-variant/50 rounded-xl overflow-hidden mb-6 flex items-center justify-center">
+                    <img id="photo-preview" class="w-full h-full object-cover hidden" alt="Selfie Preview">
+                    <div id="photo-placeholder" class="text-on-surface-variant flex flex-col items-center">
+                        <span class="material-symbols-outlined text-6xl opacity-50 mb-2">account_circle</span>
+                        <span class="text-xs">No photo</span>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <label id="btn-camera" class="w-full bg-surface-container-highest border border-outline-variant/50 text-on-surface font-headline-md text-lg py-4 rounded-xl flex items-center justify-center gap-2 cursor-pointer hover:bg-surface-bright transition-all">
+                        <span class="material-symbols-outlined">camera_alt</span> Open Camera
+                        <input type="file" id="camera-input" accept="image/*" capture="user" class="hidden">
+                    </label>
+
+                    <div id="action-buttons" class="hidden space-y-3">
+                        <label class="w-full border border-outline-variant/50 text-on-surface font-headline-md py-3 rounded-xl flex items-center justify-center gap-2 cursor-pointer hover:bg-surface-container-highest transition-all text-sm">
+                            <span class="material-symbols-outlined text-base">refresh</span> Retake
+                            <input type="file" id="camera-input-retake" accept="image/*" capture="user" class="hidden">
+                        </label>
+                        <button id="btn-submit" class="w-full bg-primary text-on-primary font-headline-md text-lg py-4 rounded-xl uppercase tracking-wider hover:brightness-110 glow-primary transition-all">
+                            Submit Photo
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 3 - SUCCESS STATE -->
+            <div id="section-success" class="hidden py-12 flex flex-col items-center">
+                <span class="material-symbols-outlined text-6xl text-tertiary mb-4">check_circle</span>
+                <h2 class="font-headline-md text-tertiary text-2xl uppercase mb-3">Photo Submitted!</h2>
+                <p class="text-on-surface-variant text-sm mb-2">Please wait for admin confirmation on the terminal screen.</p>
+                <p class="text-on-surface-variant text-xs opacity-75">You can close this page.</p>
+            </div>
+
+            <!-- SECTION 4 - ERROR STATE -->
+            <div id="section-error" class="hidden py-12 flex flex-col items-center">
+                <span class="material-symbols-outlined text-6xl text-error mb-4">error</span>
+                <h2 class="font-headline-md text-error text-2xl uppercase mb-2">Error</h2>
+                <p id="error-message" class="text-on-surface-variant text-sm">Invalid link.</p>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="/js/photo-upload.js"></script>
+</body>
+</html>

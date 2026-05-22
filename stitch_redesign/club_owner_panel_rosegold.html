@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OD Club | Owner Panel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glow-primary {
+            box-shadow: 0 0 15px rgba(255, 178, 188, 0.3);
+        }
+        .rose-gold-border {
+            border: 1px solid rgba(183, 110, 121, 0.2);
+        }
+        .rose-gold-divider {
+            border-bottom: 1px solid rgba(183, 110, 121, 0.1);
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #131313;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #B76E79;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                "on-secondary-fixed-variant": "#474646",
+                "tertiary-container": "#649d75",
+                "on-error-container": "#ffdad6",
+                "secondary-fixed": "#e5e2e1",
+                "tertiary-fixed-dim": "#98d4a8",
+                "surface-container": "#1f1f1f",
+                "primary-fixed": "#ffd9dd",
+                "on-primary": "#551e29",
+                "surface-bright": "#393939",
+                "on-error": "#690005",
+                "surface-container-low": "#1b1b1b",
+                "inverse-on-surface": "#303030",
+                "secondary": "#c9c6c5",
+                "on-tertiary-fixed-variant": "#16512f",
+                "secondary-fixed-dim": "#c9c6c5",
+                "on-surface": "#e2e2e2",
+                "inverse-surface": "#e2e2e2",
+                "on-secondary": "#313030",
+                "on-tertiary-container": "#003118",
+                "surface-dim": "#131313",
+                "on-primary-fixed-variant": "#70343e",
+                "outline-variant": "#524345",
+                "inverse-primary": "#8c4b55",
+                "secondary-container": "#4a4949",
+                "surface-tint": "#ffb2bc",
+                "surface-container-highest": "#353535",
+                "on-surface-variant": "#d7c1c3",
+                "tertiary": "#98d4a8",
+                "on-primary-container": "#4c1722",
+                "tertiary-fixed": "#b4f1c3",
+                "on-secondary-container": "#bab8b7",
+                "on-background": "#e2e2e2",
+                "outline": "#9f8c8e",
+                "surface-variant": "#353535",
+                "error": "#ffb4ab",
+                "on-tertiary-fixed": "#00210e",
+                "surface": "#131313",
+                "primary": "#ffb2bc",
+                "surface-container-high": "#2a2a2a",
+                "on-tertiary": "#00391d",
+                "background": "#131313",
+                "primary-container": "#c77b86",
+                "error-container": "#93000a",
+                "primary-fixed-dim": "#ffb2bc",
+                "on-secondary-fixed": "#1c1b1b",
+                "surface-container-lowest": "#0e0e0e",
+                "on-primary-fixed": "#3a0915"
+              },
+              "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+              },
+              "spacing": {
+                "gutter": "24px",
+                "margin-desktop": "48px",
+                "unit": "8px",
+                "margin-mobile": "16px",
+                "container-max": "1280px"
+              },
+              "fontFamily": {
+                "label-md": ["Inter"],
+                "headline-lg-mobile": ["Oswald"],
+                "headline-md": ["Oswald"],
+                "display-lg": ["Oswald"],
+                "body-lg": ["Inter"],
+                "body-md": ["Inter"],
+                "headline-lg": ["Oswald"]
+              },
+              "fontSize": {
+                "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.03em", "fontWeight": "500"}],
+                "headline-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "0.02em", "fontWeight": "600"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-24 md:pb-0">
+<!-- TopAppBar -->
+<header class="bg-background dark:bg-background border-b border-outline-variant/30 docked full-width top-0 z-50">
+<div class="flex justify-between items-center px-margin-desktop py-unit w-full max-w-container-max mx-auto h-20">
+<div class="flex items-center gap-4">
+<button class="text-primary hover:scale-95 duration-150 transition-all">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-lg text-headline-lg text-primary uppercase tracking-widest">OD Club</h1>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex gap-8 items-center mr-8">
+<a class="font-label-md text-label-md text-primary transition-all hover:glow-primary" href="#">DASHBOARD</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-all" href="#">GAMES</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-all" href="#">ANALYTICS</a>
+</div>
+<button class="text-primary hover:scale-95 duration-150 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-desktop py-12">
+<!-- Quick Stats Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+<div class="bg-surface-container-low p-8 rose-gold-border rounded-lg group transition-all hover:bg-surface-container">
+<p class="font-label-md text-label-md text-on-surface-variant mb-2">CLUB CAPACITY</p>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg text-primary">84%</span>
+<span class="font-label-md text-label-md text-tertiary">+12% vs last week</span>
+</div>
+<div class="w-full bg-surface-variant h-1 mt-4 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[84%] shadow-[0_0_8px_rgba(183,110,121,0.5)]"></div>
+</div>
+</div>
+<div class="bg-surface-container-low p-8 rose-gold-border rounded-lg group transition-all hover:bg-surface-container">
+<p class="font-label-md text-label-md text-on-surface-variant mb-2">ACTIVE GAMES</p>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg text-primary">12</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Live Now</span>
+</div>
+<div class="flex gap-1 mt-4">
+<div class="h-2 w-full bg-primary rounded-full opacity-100"></div>
+<div class="h-2 w-full bg-primary rounded-full opacity-80"></div>
+<div class="h-2 w-full bg-primary rounded-full opacity-40"></div>
+<div class="h-2 w-full bg-surface-variant rounded-full"></div>
+</div>
+</div>
+<div class="bg-surface-container-low p-8 rose-gold-border rounded-lg group transition-all hover:bg-surface-container border-l-4 border-l-primary">
+<p class="font-label-md text-label-md text-on-surface-variant mb-2">PRIORITY ALERTS</p>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg text-error">03</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Unresolved</span>
+</div>
+<p class="text-[12px] mt-4 text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="report">report</span> Check entry booth 2
+                </p>
+</div>
+<div class="bg-surface-container-low p-8 rose-gold-border rounded-lg group transition-all hover:bg-surface-container">
+<p class="font-label-md text-label-md text-on-surface-variant mb-2">REVENUE (24H)</p>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg text-primary">$4.2K</span>
+<span class="font-label-md text-label-md text-tertiary">↑ 8.4%</span>
+</div>
+<div class="mt-4 flex justify-between items-end h-8">
+<div class="w-2 bg-primary/20 h-4"></div>
+<div class="w-2 bg-primary/40 h-6"></div>
+<div class="w-2 bg-primary/60 h-8"></div>
+<div class="w-2 bg-primary h-7"></div>
+<div class="w-2 bg-primary h-10"></div>
+</div>
+</div>
+</section>
+<!-- Main Workspace: Verification & List -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Live Verification Panel -->
+<div class="lg:col-span-1 space-y-6">
+<div class="bg-surface-container-low rose-gold-border rounded-lg overflow-hidden">
+<div class="p-6 border-b border-outline-variant/30 flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md text-primary">LIVE VERIFICATION</h3>
+<span class="flex h-2 w-2 rounded-full bg-error animate-pulse"></span>
+</div>
+<div class="p-6">
+<div class="relative aspect-[4/5] rounded-lg overflow-hidden bg-surface-container mb-6 border border-primary/10">
+<img alt="Entry Photo" class="w-full h-full object-cover grayscale opacity-80" data-alt="A cinematic, high-contrast portrait of a sophisticated man in a tailored dark suit. The lighting is dramatic and moody, coming from a single side-light that highlights the sharp features of his face while the rest fades into deep charcoal shadows. The atmosphere is prestigious and exclusive, mirroring a luxury private club environment with rose gold metallic accents reflected in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7cDAinTxj0VzIGXVdfeatZp-gM8Zzg5xR7h6kPTGuCXr6Rl6rDkHY8EaA91SzX-InGbBeUQt2ZuG_2yWXirwyTORH6xRsKOVYuNnW8lHxFype9yA4GE43E0zdxmkAOzRrQxOXOz67vCmsMDZqVfCb6FOG8qqwtDdy2xZmmyjsrUPheidl_713DQ16gYGMOyJnPF5NCv20wO139-faJ8Aln9d2ZqVBZHXaKMckvC_fIOb7_fuZrgnyGI_GBf7JaaSSeNXYNVon--M"/>
+<div class="absolute inset-0 border-2 border-primary/30 flex items-center justify-center">
+<div class="w-[80%] h-[80%] border border-primary/20 relative">
+<div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-primary"></div>
+<div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-primary"></div>
+<div class="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-primary"></div>
+<div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary"></div>
+</div>
+</div>
+<div class="absolute bottom-4 left-4 right-4 bg-background/80 backdrop-blur-md p-4 rose-gold-border">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-primary">MATCH CONFIDENCE</span>
+<span class="font-headline-md text-headline-md text-primary">98.4%</span>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<div>
+<p class="text-[12px] text-on-surface-variant">NAME</p>
+<p class="font-label-md text-on-surface">ALEXANDER VANCE</p>
+</div>
+<span class="bg-primary/10 text-primary px-3 py-1 text-[10px] font-bold border border-primary/20 tracking-widest">BLACK MEMBER</span>
+</div>
+<div class="flex justify-between items-center">
+<div>
+<p class="text-[12px] text-on-surface-variant">CHECK-IN TIME</p>
+<p class="font-label-md text-on-surface">22:41:04</p>
+</div>
+<button class="bg-primary text-on-primary font-headline-md text-[14px] px-6 py-2 rounded-sm hover:glow-primary transition-all">APPROVE</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rose-gold-border rounded-lg">
+<h4 class="font-label-md text-label-md text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="sports_esports">sports_esports</span>
+                        TABLE STATUS
+                    </h4>
+<div class="space-y-3">
+<div class="flex justify-between items-center py-2 rose-gold-divider">
+<span class="text-on-surface-variant">VIP TABLE 01</span>
+<span class="text-tertiary">ACTIVE</span>
+</div>
+<div class="flex justify-between items-center py-2 rose-gold-divider">
+<span class="text-on-surface-variant">VIP TABLE 02</span>
+<span class="text-error">ALERT</span>
+</div>
+<div class="flex justify-between items-center py-2 rose-gold-divider">
+<span class="text-on-surface-variant">MAIN SALON 05</span>
+<span class="text-primary/40">EMPTY</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Check-ins Table -->
+<div class="lg:col-span-2">
+<div class="bg-surface-container-low rose-gold-border rounded-lg h-full">
+<div class="p-8 border-b border-outline-variant/30 flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md text-primary uppercase tracking-widest">RECENT ARRIVALS</h3>
+<div class="flex gap-2">
+<button class="bg-surface-container border border-primary/20 text-on-surface-variant p-2 rounded hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+</button>
+<button class="bg-surface-container border border-primary/20 text-on-surface-variant p-2 rounded hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="border-b border-outline-variant/20 bg-background/30">
+<th class="px-8 py-4 font-label-md text-label-md text-primary uppercase">Guest</th>
+<th class="px-8 py-4 font-label-md text-label-md text-primary uppercase">Tier</th>
+<th class="px-8 py-4 font-label-md text-label-md text-primary uppercase">Status</th>
+<th class="px-8 py-4 font-label-md text-label-md text-primary uppercase">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-variant/10 transition-colors">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full border border-primary/30 overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a chic woman with elegant makeup, set in a dark and moody atmospheric lighting environment. The background is a soft-focus bokeh of luxury lounge lights in rose gold tones. The style is high-end editorial, emphasizing sharp contrasts and a premium aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAP21vVYB--3sOBYC-xisEDwLHAv_yXb7iI_yhwXDLppPRna-WcL-8_VdlodNxcsBE8Yn-WpnTVsLPKUr59qt8aUy4vo4ObeCxAO1LJqXF1sK5ZBZ0oBmXLDCQSKwZWiZIwbBmt1xICNTU6GQ9yoRHjRi4M1vPRlSSS-F2ASLQvJXwm15FUw31EnZSH_qKuw1Ngx2ypZckRs3xVRR8GATOtiZzFYC3PGGx3UOA-H4GLRtyaYGETc9zNQAlTSIpNUlTss9uFsbhmwM"/>
+</div>
+<div>
+<p class="font-label-md text-on-surface">Elena Rodriguez</p>
+<p class="text-[12px] text-on-surface-variant">22:38 · Gate 01</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<span class="text-primary font-label-md">PLATINUM</span>
+</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+<span class="text-[12px] text-tertiary font-bold">VERIFIED</span>
+</div>
+</td>
+<td class="px-8 py-6">
+<button class="text-on-surface-variant hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-variant/10 transition-colors">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full border border-primary/30 overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Sophisticated man in evening wear, captured in a low-light luxury environment. The lighting creates a rim-light effect around his silhouette, with a dark charcoal background that feels expensive and exclusive. The overall color palette is muted blacks and warm metallic rose gold accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvAQEAmnZMpLYIi8sameEYd42p1FopYcAw6RY0XqXpaKhz9Y3YkhcFPFQ0o5VigVqOLjPHUuQYiri6VUuis98F611WqlxOcxRPu0Dmzt3-8MCEztjL4Tpk2vpWrxhAdVT9P0DDlwcTACzZ6FKCA_Ex9sxeEOnvwvfA0fBozej6T3ArgP0P3JFOaeFkO-E5iC8G1rdNXDPogJdOV8H0v-P2db7Unjexdu_LGgsdQtwc6777BvHwRqMOQxMGazc5jz_xGULRPXoNv1U"/>
+</div>
+<div>
+<p class="font-label-md text-on-surface">Julian Banks</p>
+<p class="text-[12px] text-on-surface-variant">22:15 · Gate 02</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<span class="text-primary font-label-md">BLACK</span>
+</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+<span class="text-[12px] text-tertiary font-bold">VERIFIED</span>
+</div>
+</td>
+<td class="px-8 py-6">
+<button class="text-on-surface-variant hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-variant/10 transition-colors">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full border border-primary/30 overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Corporate professional in high-end club environment, moody portrait with warm rose gold secondary lighting. The composition is clean and minimalist, set against a deep black textured wall. The atmosphere conveys success and prestige in a private setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtDCYqs3WJFaKqIKdwFAy3EF-wsniilAjkGZJ24zla1tQLFnyd1Dhl1fjJrgYN2Ya_ZdTnaKf2EMgzyO9PqD4LCRDo_tqP-edJTxGA_kjOh7ErZa3mLbbLD50rq0B-520NhX7CM1I-Q4qO3GUC9RK9OTwgVMoYs0Uo7Kv7R_0bclZtl2NL54poSZYl6Zu_71TwuB8aGigeeH5V4LRaBZvbI9eP431GnM3v9KBa3_-LirRwlWCpC7l3hQmHMy1Fs0l9rmp8srRBs5E"/>
+</div>
+<div>
+<p class="font-label-md text-on-surface">Marcus Thorne</p>
+<p class="text-[12px] text-on-surface-variant">21:54 · Gate 01</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<span class="text-on-surface-variant font-label-md">GOLD</span>
+</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+<span class="text-[12px] text-error font-bold">FLAGGED</span>
+</div>
+</td>
+<td class="px-8 py-6">
+<button class="text-on-surface-variant hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-variant/10 transition-colors">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full border border-primary/30 overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Elegant woman in a cocktail dress in a darkened, prestigious interior. The scene is illuminated by subtle golden and rose lighting, creating a luxury editorial feel. The background is minimal, focusing on the sophisticated subject within an elite lifestyle context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAK0eL1CmlcpvcjZu_GyH0391_jGgcER6IinG3_lsKz32yFCGTojbvo38tfwzTK0Y0NXU9qSi46jpFdo0Z8dcYSB5QlE6G3mgf3dXpykkEjBQghgHUifmXYN_ERN0wP4wKmYqmJtA76z1kejexqhZ_8R2NMe0vixvYrJTlIOFBS-w9qT7xcwF5282W8MoTixlaI63W2PwvLI96H-kWBfB0nfpdycVk7uM09eRyllhaHaglyKDmxF82qIdq8_btNI70FxAWZEEYPA1M"/>
+</div>
+<div>
+<p class="font-label-md text-on-surface">Sophia Chen</p>
+<p class="text-[12px] text-on-surface-variant">21:42 · Gate 03</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<span class="text-primary font-label-md">PLATINUM</span>
+</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+<span class="text-[12px] text-tertiary font-bold">VERIFIED</span>
+</div>
+</td>
+<td class="px-8 py-6">
+<button class="text-on-surface-variant hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-primary/20">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="qr_code_scanner">qr_code_scanner</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="fitness_center">fitness_center</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-primary bg-primary rounded-xl p-2 shadow-[0_0_15px_rgba(255,178,188,0.3)] active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="sports_esports">sports_esports</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="workspace_premium">workspace_premium</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for rows
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('click', () => {
+                row.classList.add('scale-[0.99]');
+                setTimeout(() => row.classList.remove('scale-[0.99]'), 100);
+            });
+        });
+
+        // Dynamic Capacity Update simulation
+        const progressBar = document.querySelector('.bg-primary.h-full');
+        setInterval(() => {
+            const randomVar = (Math.random() * 2 - 1).toFixed(1);
+            const currentWidth = parseFloat(progressBar.style.width || "84");
+            const nextWidth = Math.min(100, Math.max(70, currentWidth + parseFloat(randomVar)));
+            progressBar.style.transition = 'width 1s ease-in-out';
+            progressBar.style.width = nextWidth + '%';
+        }, 5000);
+    </script>
+</body></html>

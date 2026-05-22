@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OD Club Super Admin Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Oswald:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#474646",
+                        "tertiary-container": "#649d75",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#e5e2e1",
+                        "tertiary-fixed-dim": "#98d4a8",
+                        "surface-container": "#1f1f1f",
+                        "primary-fixed": "#ffd9dd",
+                        "on-primary": "#551e29",
+                        "surface-bright": "#393939",
+                        "on-error": "#690005",
+                        "surface-container-low": "#1b1b1b",
+                        "inverse-on-surface": "#303030",
+                        "secondary": "#c9c6c5",
+                        "on-tertiary-fixed-variant": "#16512f",
+                        "secondary-fixed-dim": "#c9c6c5",
+                        "on-surface": "#e2e2e2",
+                        "inverse-surface": "#e2e2e2",
+                        "on-secondary": "#313030",
+                        "on-tertiary-container": "#003118",
+                        "surface-dim": "#131313",
+                        "on-primary-fixed-variant": "#70343e",
+                        "outline-variant": "#524345",
+                        "inverse-primary": "#8c4b55",
+                        "secondary-container": "#4a4949",
+                        "surface-tint": "#ffb2bc",
+                        "surface-container-highest": "#353535",
+                        "on-surface-variant": "#d7c1c3",
+                        "tertiary": "#98d4a8",
+                        "on-primary-container": "#4c1722",
+                        "tertiary-fixed": "#b4f1c3",
+                        "on-secondary-container": "#bab8b7",
+                        "on-background": "#e2e2e2",
+                        "outline": "#9f8c8e",
+                        "surface-variant": "#353535",
+                        "error": "#ffb4ab",
+                        "on-tertiary-fixed": "#00210e",
+                        "surface": "#131313",
+                        "primary": "#ffb2bc",
+                        "surface-container-high": "#2a2a2a",
+                        "on-tertiary": "#00391d",
+                        "background": "#131313",
+                        "primary-container": "#c77b86",
+                        "error-container": "#93000a",
+                        "primary-fixed-dim": "#ffb2bc",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "on-primary-fixed": "#3a0915"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-desktop": "48px",
+                        "unit": "8px",
+                        "margin-mobile": "16px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Oswald"],
+                        "headline-md": ["Oswald"],
+                        "display-lg": ["Oswald"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Oswald"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.03em", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "0.02em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #131313;
+            color: #e2e2e2;
+            font-family: 'Inter', sans-serif;
+        }
+        .glow-primary {
+            box-shadow: 0 0 15px rgba(255, 178, 188, 0.3);
+        }
+        .bento-card {
+            background-color: #0A0A0A;
+            border-top: 2px solid rgba(183, 110, 121, 0.4);
+            transition: all 0.3s ease;
+        }
+        .bento-card:hover {
+            border-top-color: #ffb2bc;
+            box-shadow: 0 0 20px rgba(183, 110, 121, 0.1);
+        }
+        .rose-gold-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(183, 110, 121, 0.2), transparent);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="bg-background dark:bg-background border-b border-outline-variant/30 docked full-width top-0 z-50">
+<div class="flex justify-between items-center px-margin-desktop py-unit w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-95 duration-150">menu</span>
+<h1 class="font-headline-lg text-headline-lg text-primary uppercase tracking-widest">OD Club</h1>
+</div>
+<div class="flex items-center gap-gutter">
+<div class="hidden md:flex items-center gap-6">
+<button class="font-label-md text-label-md text-primary uppercase tracking-widest hover:glow-primary transition-all">Command</button>
+<button class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest hover:text-primary transition-all">Network</button>
+<button class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest hover:text-primary transition-all">Vault</button>
+</div>
+<span class="material-symbols-outlined text-primary text-3xl cursor-pointer scale-95 duration-150">account_circle</span>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-desktop py-12">
+<!-- Hero Header -->
+<div class="mb-12">
+<h2 class="font-headline-lg text-headline-lg text-on-surface uppercase mb-2">Nexus Terminal</h2>
+<p class="font-body-md text-body-md text-on-surface-variant tracking-wide">SYSTEM OVERRIDE: ACTIVE • CLEARANCE: SUPER ADMIN</p>
+<div class="rose-gold-divider mt-4"></div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Live Status & Member Count -->
+<div class="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-gutter">
+<!-- Live System Card -->
+<div class="bento-card p-8 flex flex-col justify-between h-64">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary text-4xl">dns</span>
+<div class="flex items-center gap-2 bg-tertiary/10 px-3 py-1 rounded-full">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+<span class="text-[10px] font-label-md text-tertiary uppercase">Operational</span>
+</div>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase mb-1">Live Latency</h3>
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg text-on-surface">14</span>
+<span class="font-headline-md text-headline-md text-primary">ms</span>
+</div>
+</div>
+</div>
+<!-- Active Members Card -->
+<div class="bento-card p-8 flex flex-col justify-between h-64">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary text-4xl">group</span>
+<span class="text-[10px] font-label-md text-on-surface-variant uppercase tracking-widest">+12% vs LY</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase mb-1">Active Sovereigns</h3>
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg text-on-surface">8,241</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Revenue Metrics -->
+<div class="md:col-span-4 bento-card p-8 relative overflow-hidden h-full flex flex-col justify-between">
+<div>
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase mb-8">Quarterly Revenue</h3>
+<div class="flex items-baseline gap-2 mb-4">
+<span class="font-display-lg text-display-lg text-primary">$4.2M</span>
+</div>
+<div class="h-32 w-full flex items-end gap-1">
+<!-- Simplified Bar Chart Visual -->
+<div class="bg-primary/20 w-full h-[40%] rounded-t-sm"></div>
+<div class="bg-primary/30 w-full h-[60%] rounded-t-sm"></div>
+<div class="bg-primary/50 w-full h-[50%] rounded-t-sm"></div>
+<div class="bg-primary/80 w-full h-[80%] rounded-t-sm"></div>
+<div class="bg-primary w-full h-[100%] rounded-t-sm glow-primary"></div>
+</div>
+</div>
+<button class="w-full py-4 border border-primary text-primary font-headline-md text-sm uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all duration-300">
+                    Export Ledger
+                </button>
+</div>
+<!-- Tactical Actions -->
+<div class="md:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Action: Broadcast -->
+<button class="group relative flex items-center justify-between p-8 bg-surface-container-low border border-outline-variant/30 hover:border-primary/50 transition-all duration-500 overflow-hidden">
+<div class="relative z-10 text-left">
+<h4 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">Broadcast</h4>
+<p class="font-label-md text-label-md text-on-surface-variant">Global Nexus Transmission</p>
+</div>
+<span class="material-symbols-outlined text-primary text-4xl group-hover:scale-110 transition-transform">campaign</span>
+<div class="absolute inset-0 bg-primary/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+</button>
+<!-- Action: Security -->
+<button class="group relative flex items-center justify-between p-8 bg-surface-container-low border border-outline-variant/30 hover:border-primary/50 transition-all duration-500 overflow-hidden">
+<div class="relative z-10 text-left">
+<h4 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">Security</h4>
+<p class="font-label-md text-label-md text-on-surface-variant">Protocol &amp; Firewall Status</p>
+</div>
+<span class="material-symbols-outlined text-primary text-4xl group-hover:scale-110 transition-transform">encrypted</span>
+<div class="absolute inset-0 bg-primary/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+</button>
+<!-- Action: Maintenance -->
+<button class="group relative flex items-center justify-between p-8 bg-surface-container-low border border-outline-variant/30 hover:border-primary/50 transition-all duration-500 overflow-hidden">
+<div class="relative z-10 text-left">
+<h4 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">Maintenance</h4>
+<p class="font-label-md text-label-md text-on-surface-variant">Scheduled System Optimization</p>
+</div>
+<span class="material-symbols-outlined text-primary text-4xl group-hover:scale-110 transition-transform">build</span>
+<div class="absolute inset-0 bg-primary/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+</button>
+</div>
+<!-- Performance Chart Area -->
+<div class="md:col-span-12 bento-card p-10">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface uppercase">Network Performance</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Real-time engagement and packet throughput</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-primary rounded-full"></span>
+<span class="font-label-md text-label-md text-on-surface">Engagement</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-on-surface-variant/30 rounded-full"></span>
+<span class="font-label-md text-label-md text-on-surface">Background Tasking</span>
+</div>
+</div>
+</div>
+<div class="w-full h-80 relative">
+<img class="w-full h-full object-cover opacity-60 rounded-lg filter grayscale contrast-125 brightness-75 border border-primary/20" data-alt="A sophisticated data visualization dashboard showing sleek, minimalist wave charts in rose gold and glowing pink against a deep charcoal background. The interface looks premium and cinematic, with thin lines and high-contrast labels. Soft ambient light glimmers off the edges of the digital graphs, creating a sense of luxury and high-tech precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCs_s4UbEEe6aciGtgshSBKE292HhnBQa0LK8nJum5IgiaDlsaQ6QMjaVPtFyrOGvGcFryKZkl9Bhk1N-QA5w1gBJT8yY00e_5Zcx6w2CTqjg2mv4dF7AyDiv9_AV753Jc73hsifz2abwo8HbAOgGiTjs4o_GTViey9tuKhwkp3o35reX1iDtnMsDRMXZpTyhqZ2NruRrG35IB9n9A6KLjalVqt0UoPI-QNL-wZny1R_pWMyhhSyctvp8zmpnzYKVXa5eHTZAelP5I"/>
+<!-- Decorative overlay for high-end feel -->
+<div class="absolute inset-0 pointer-events-none border border-primary/10"></div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-primary/20">
+<div class="flex flex-col items-center justify-center text-on-surface-variant p-2">
+<span class="material-symbols-outlined">qr_code_scanner</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant p-2">
+<span class="material-symbols-outlined">fitness_center</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-primary bg-primary rounded-xl p-2 shadow-[0_0_15px_rgba(255,178,188,0.3)]">
+<span class="material-symbols-outlined">home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant p-2">
+<span class="material-symbols-outlined">sports_esports</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant p-2">
+<span class="material-symbols-outlined">workspace_premium</span>
+</div>
+</nav>
+<!-- Footer -->
+<footer class="mt-12 py-8 border-t border-outline-variant/10">
+<div class="max-w-container-max mx-auto px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">© 2024 OD Club CORP. ALL RIGHTS RESERVED.</p>
+<div class="flex gap-8">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">PRIVACY</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">SECURITY</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">PROTOCOLS</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interaction for live metrics
+        function updateLiveMetrics() {
+            const latency = document.querySelector('.font-display-lg.text-on-surface');
+            if (latency) {
+                const current = parseInt(latency.innerText);
+                const variance = Math.floor(Math.random() * 3) - 1; // -1, 0, or 1
+                latency.innerText = Math.max(10, current + variance);
+            }
+        }
+        setInterval(updateLiveMetrics, 3000);
+    </script>
+</body></html>
