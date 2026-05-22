@@ -37,6 +37,9 @@
         .theme-table th, .theme-table td { padding: 1rem; border-bottom: 1px solid rgba(183, 110, 121, 0.2); }
         .theme-table th { font-family: 'Oswald'; color: #ffb2bc; text-transform: uppercase; }
         .theme-table tr:hover { background-color: rgba(255, 178, 188, 0.05); }
+
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
     <script id="tailwind-config">
         tailwind.config = {
@@ -104,57 +107,65 @@
     <div id="dashboard-section" class="hidden">
         <!-- TopAppBar -->
         <header class="bg-background border-b border-outline-variant/30 fixed w-full top-0 z-50">
-            <div class="flex justify-between items-center px-8 py-2 w-full max-w-7xl mx-auto h-20">
-                <div class="flex items-center gap-4">
-                    <h1 class="font-headline-lg text-primary uppercase tracking-widest text-2xl">OD Club</h1>
+            <div class="flex flex-wrap items-center justify-between px-4 md:px-8 py-3 w-full max-w-7xl mx-auto min-h-[5rem] gap-y-3">
+                <!-- Logo -->
+                <div class="flex items-center gap-4 order-1">
+                    <h1 class="font-headline-lg text-primary uppercase tracking-widest text-xl md:text-2xl">OD Club</h1>
                 </div>
-                <div class="flex items-center gap-6">
-                    <div class="hidden md:flex gap-8 items-center mr-8 nav-tabs">
-                        <div class="nav-tab active font-label-md text-primary cursor-pointer transition-all hover:glow-primary" data-tab="live-feed-tab">REAL-TIME FEED</div>
-                        <div class="nav-tab font-label-md text-on-surface-variant cursor-pointer hover:text-primary transition-all" data-tab="members-tab">MEMBERS</div>
-                        <div class="nav-tab font-label-md text-on-surface-variant cursor-pointer hover:text-primary transition-all" data-tab="reports-tab">REPORTS</div>
-                        <div class="nav-tab font-label-md text-on-surface-variant cursor-pointer hover:text-primary transition-all" data-tab="settings-tab">SETTINGS</div>
-                    </div>
+
+                <!-- Logout Button -->
+                <div class="flex items-center order-2 md:order-3">
                     <button id="logout-btn" class="text-primary hover:scale-95 transition-all flex items-center gap-2">
                         <span class="material-symbols-outlined">logout</span>
                     </button>
                 </div>
+
+                <!-- Tabs (Full width on mobile, auto on desktop) -->
+                <div class="w-full md:w-auto overflow-x-auto hide-scrollbar order-3 md:order-2 md:mr-auto md:ml-8">
+                    <div class="flex gap-6 md:gap-8 items-center nav-tabs whitespace-nowrap pb-1 md:pb-0">
+                        <div class="nav-tab active font-label-md text-primary cursor-pointer transition-all hover:glow-primary text-sm md:text-base" data-tab="live-feed-tab">REAL-TIME FEED</div>
+                        <div class="nav-tab font-label-md text-on-surface-variant cursor-pointer hover:text-primary transition-all text-sm md:text-base" data-tab="members-tab">MEMBERS</div>
+                        <div class="nav-tab font-label-md text-on-surface-variant cursor-pointer hover:text-primary transition-all text-sm md:text-base" data-tab="reports-tab">REPORTS</div>
+                        <div class="nav-tab font-label-md text-on-surface-variant cursor-pointer hover:text-primary transition-all text-sm md:text-base" data-tab="settings-tab">SETTINGS</div>
+                    </div>
+                </div>
             </div>
         </header>
 
-        <main class="max-w-7xl mx-auto px-8 py-28">
+        <main class="max-w-7xl mx-auto px-4 md:px-8 pt-32 md:pt-28 pb-12">
             <div id="status-alert" class="hidden mb-4 p-3 rounded font-medium text-sm"></div>
-
-            <!-- Quick Stats Bento Grid (Visible across tabs) -->
-            <section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-                <div class="bg-surface-container-low p-6 rose-gold-border rounded-lg group transition-all hover:bg-surface-container border-l-4 border-l-primary/50">
-                    <p class="font-label-md text-on-surface-variant mb-2 text-sm">TOTAL MEMBERS</p>
-                    <div class="flex items-baseline gap-2">
-                        <span class="font-headline-lg text-3xl text-primary" id="stat-total-members">0</span>
-                    </div>
-                </div>
-                <div class="bg-surface-container-low p-6 rose-gold-border rounded-lg group transition-all hover:bg-surface-container">
-                    <p class="font-label-md text-on-surface-variant mb-2 text-sm">GYM ENTRIES TODAY</p>
-                    <div class="flex items-baseline gap-2">
-                        <span class="font-headline-lg text-3xl text-primary" id="gym-count">0</span>
-                    </div>
-                </div>
-                <div class="bg-surface-container-low p-6 rose-gold-border rounded-lg group transition-all hover:bg-surface-container">
-                    <p class="font-label-md text-on-surface-variant mb-2 text-sm">GAME ZONE TODAY</p>
-                    <div class="flex items-baseline gap-2">
-                        <span class="font-headline-lg text-3xl text-primary" id="gamezone-count">0</span>
-                    </div>
-                </div>
-                <div class="bg-surface-container-low p-6 rose-gold-border rounded-lg group transition-all hover:bg-surface-container border-l-4 border-l-error">
-                    <p class="font-label-md text-error mb-2 text-sm">SUSPICIOUS ALERTS</p>
-                    <div class="flex items-baseline gap-2">
-                        <span class="font-headline-lg text-3xl text-error" id="stat-alerts">0</span>
-                    </div>
-                </div>
-            </section>
 
             <!-- LIVE FEED TAB -->
             <div id="live-feed-tab" class="tab-content block">
+                
+                <!-- Quick Stats Bento Grid (Moved inside tab) -->
+                <section class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-8 md:mb-12">
+                    <div class="bg-surface-container-low p-4 md:p-6 rose-gold-border rounded-lg group transition-all hover:bg-surface-container border-l-4 border-l-primary/50">
+                        <p class="font-label-md text-on-surface-variant mb-1 md:mb-2 text-xs md:text-sm">TOTAL MEMBERS</p>
+                        <div class="flex items-baseline gap-2">
+                            <span class="font-headline-lg text-2xl md:text-3xl text-primary" id="stat-total-members">0</span>
+                        </div>
+                    </div>
+                    <div class="bg-surface-container-low p-4 md:p-6 rose-gold-border rounded-lg group transition-all hover:bg-surface-container">
+                        <p class="font-label-md text-on-surface-variant mb-1 md:mb-2 text-xs md:text-sm uppercase">Gym Entries Today</p>
+                        <div class="flex items-baseline gap-2">
+                            <span class="font-headline-lg text-2xl md:text-3xl text-primary" id="gym-count">0</span>
+                        </div>
+                    </div>
+                    <div class="bg-surface-container-low p-4 md:p-6 rose-gold-border rounded-lg group transition-all hover:bg-surface-container">
+                        <p class="font-label-md text-on-surface-variant mb-1 md:mb-2 text-xs md:text-sm uppercase">Game Zone Today</p>
+                        <div class="flex items-baseline gap-2">
+                            <span class="font-headline-lg text-2xl md:text-3xl text-primary" id="gamezone-count">0</span>
+                        </div>
+                    </div>
+                    <div class="bg-surface-container-low p-4 md:p-6 rose-gold-border rounded-lg group transition-all hover:bg-surface-container border-l-4 border-l-error">
+                        <p class="font-label-md text-error mb-1 md:mb-2 text-xs md:text-sm">SUSPICIOUS ALERTS</p>
+                        <div class="flex items-baseline gap-2">
+                            <span class="font-headline-lg text-2xl md:text-3xl text-error" id="stat-alerts">0</span>
+                        </div>
+                    </div>
+                </section>
+
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                     <!-- Left: Analytics and Alerts -->
                     <div class="lg:col-span-5 space-y-6 flex flex-col">
@@ -192,10 +203,10 @@
 
             <!-- MEMBERS TAB -->
             <div id="members-tab" class="tab-content hidden">
-                <div class="bg-surface-container-low rose-gold-border rounded-lg p-8">
-                    <div class="flex justify-between items-center mb-6 border-b border-outline-variant/30 pb-4">
-                        <h3 class="font-headline-md text-primary uppercase">Manage Members</h3>
-                        <button id="add-member-btn" class="bg-primary/20 text-primary px-4 py-2 rounded font-label-md border border-primary/30 hover:bg-primary/30">+ REGISTER</button>
+                <div class="bg-surface-container-low rose-gold-border rounded-lg p-4 md:p-8">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 border-b border-outline-variant/30 pb-4 gap-4">
+                        <h3 class="font-headline-md text-primary uppercase text-lg md:text-xl">Manage Members</h3>
+                        <button id="add-member-btn" class="bg-primary/20 text-primary px-4 py-2 rounded font-label-md border border-primary/30 hover:bg-primary/30 whitespace-nowrap">+ REGISTER</button>
                     </div>
                     <div class="overflow-x-auto">
                         <table id="members-table" class="w-full text-left theme-table">
