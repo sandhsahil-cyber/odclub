@@ -118,8 +118,9 @@ checkinForm.addEventListener('submit', async (e) => {
         currentToken = docRef.id;
 
         // Step 6: Generate QR code
-        const URL = window.location.href.split('/member-checkin.html')[0] + "/photo-upload.html?token=" + currentToken;
-        QRCode.toCanvas(qrCanvas, URL, { width: 250, margin: 2, color: { dark: '#131313', light: '#ffffff' } }, function (error) {
+        const baseUrl = window.location.origin;
+        const qrUrl = baseUrl + "/photo-upload.html?token=" + currentToken;
+        QRCode.toCanvas(qrCanvas, qrUrl, { width: 250, margin: 2, color: { dark: '#131313', light: '#ffffff' } }, function (error) {
             if (error) console.error(error);
         });
 

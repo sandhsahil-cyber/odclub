@@ -64,58 +64,58 @@
         </div>
     </header>
 
-    <main class="flex-grow w-full max-w-7xl mx-auto px-8 py-12 z-10 relative">
-        <div class="mb-12 text-center md:text-left">
-            <h2 class="font-headline-lg text-on-surface uppercase mb-2 text-4xl">System Portal</h2>
-            <p class="font-body-md text-on-surface-variant tracking-wide">Select your destination module to authenticate and proceed.</p>
+    <main class="flex-grow w-full max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-12 z-10 relative">
+        <div class="mb-8 md:mb-12 text-center md:text-left">
+            <h2 class="font-headline-lg text-on-surface uppercase mb-2 text-3xl md:text-4xl">System Portal</h2>
+            <p class="font-body-md text-on-surface-variant tracking-wide text-sm md:text-base">Select your destination module to authenticate and proceed.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             
             <!-- Member Check-in -->
-            <a href="/member-checkin.html" class="bento-card p-8 rounded-xl h-64 group cursor-pointer">
+            <a href="/member-checkin.html" class="bento-card p-6 md:p-8 rounded-xl min-h-[200px] md:h-64 flex flex-col justify-between group cursor-pointer">
                 <div>
-                    <span class="material-symbols-outlined text-primary text-4xl mb-4 group-hover:scale-110 transition-transform">qr_code_scanner</span>
-                    <h3 class="font-headline-md text-on-surface uppercase mb-2">Member Check-in</h3>
-                    <p class="font-label-md text-on-surface-variant text-sm">Self-service terminal for members to request facility access.</p>
+                    <span class="material-symbols-outlined text-primary text-3xl md:text-4xl mb-3 md:mb-4 group-hover:scale-110 transition-transform">qr_code_scanner</span>
+                    <h3 class="font-headline-md text-on-surface uppercase mb-1 md:mb-2 text-lg md:text-xl">Member Check-in</h3>
+                    <p class="font-label-md text-on-surface-variant text-xs md:text-sm">Self-service terminal for members to request facility access.</p>
                 </div>
-                <div class="flex items-center gap-2 text-primary mt-4 font-label-md uppercase tracking-wider text-xs">
+                <div class="flex items-center gap-2 text-primary mt-4 font-label-md uppercase tracking-wider text-[10px] md:text-xs">
                     Start <span class="material-symbols-outlined text-sm">arrow_forward</span>
                 </div>
             </a>
 
             <!-- Gym Admin -->
-            <a href="/gym-admin.html" class="bento-card p-8 rounded-xl h-64 group cursor-pointer">
+            <a href="/gym-admin.html" class="bento-card p-6 md:p-8 rounded-xl min-h-[200px] md:h-64 flex flex-col justify-between group cursor-pointer">
                 <div>
-                    <span class="material-symbols-outlined text-primary text-4xl mb-4 group-hover:scale-110 transition-transform">fitness_center</span>
-                    <h3 class="font-headline-md text-on-surface uppercase mb-2">Gym Admin</h3>
-                    <p class="font-label-md text-on-surface-variant text-sm">Review pending check-ins and authorize gym access.</p>
+                    <span class="material-symbols-outlined text-primary text-3xl md:text-4xl mb-3 md:mb-4 group-hover:scale-110 transition-transform">fitness_center</span>
+                    <h3 class="font-headline-md text-on-surface uppercase mb-1 md:mb-2 text-lg md:text-xl">Gym Admin</h3>
+                    <p class="font-label-md text-on-surface-variant text-xs md:text-sm">Review pending check-ins and authorize gym access.</p>
                 </div>
-                <div class="flex items-center gap-2 text-primary mt-4 font-label-md uppercase tracking-wider text-xs">
+                <div class="flex items-center gap-2 text-primary mt-4 font-label-md uppercase tracking-wider text-[10px] md:text-xs">
                     Access Module <span class="material-symbols-outlined text-sm">arrow_forward</span>
                 </div>
             </a>
 
             <!-- Game Zone Admin -->
-            <a href="/gamezone-admin.html" class="bento-card p-8 rounded-xl h-64 group cursor-pointer">
+            <a href="/gamezone-admin.html" class="bento-card p-6 md:p-8 rounded-xl min-h-[200px] md:h-64 flex flex-col justify-between group cursor-pointer">
                 <div>
-                    <span class="material-symbols-outlined text-primary text-4xl mb-4 group-hover:scale-110 transition-transform">sports_esports</span>
-                    <h3 class="font-headline-md text-on-surface uppercase mb-2">Game Zone Admin</h3>
-                    <p class="font-label-md text-on-surface-variant text-sm">Review pending check-ins and authorize game zone access.</p>
+                    <span class="material-symbols-outlined text-primary text-3xl md:text-4xl mb-3 md:mb-4 group-hover:scale-110 transition-transform">sports_esports</span>
+                    <h3 class="font-headline-md text-on-surface uppercase mb-1 md:mb-2 text-lg md:text-xl">Game Zone Admin</h3>
+                    <p class="font-label-md text-on-surface-variant text-xs md:text-sm">Review pending check-ins and authorize game zone access.</p>
                 </div>
-                <div class="flex items-center gap-2 text-primary mt-4 font-label-md uppercase tracking-wider text-xs">
+                <div class="flex items-center gap-2 text-primary mt-4 font-label-md uppercase tracking-wider text-[10px] md:text-xs">
                     Access Module <span class="material-symbols-outlined text-sm">arrow_forward</span>
                 </div>
             </a>
 
             <!-- Club Owner Panel -->
-            <a href="/clubowner.html" class="bento-card p-8 rounded-xl h-64 group cursor-pointer border-l-4 border-l-primary">
+            <a href="/clubowner.html" class="bento-card p-6 md:p-8 rounded-xl min-h-[200px] md:h-64 flex flex-col justify-between group cursor-pointer border-l-4 border-l-primary">
                 <div>
-                    <span class="material-symbols-outlined text-primary text-4xl mb-4 group-hover:scale-110 transition-transform">admin_panel_settings</span>
-                    <h3 class="font-headline-md text-on-surface uppercase mb-2">Owner Panel</h3>
-                    <p class="font-label-md text-on-surface-variant text-sm">Real-time check-in monitoring, capacity metrics, and member management.</p>
+                    <span class="material-symbols-outlined text-primary text-3xl md:text-4xl mb-3 md:mb-4 group-hover:scale-110 transition-transform">admin_panel_settings</span>
+                    <h3 class="font-headline-md text-on-surface uppercase mb-1 md:mb-2 text-lg md:text-xl">Owner Panel</h3>
+                    <p class="font-label-md text-on-surface-variant text-xs md:text-sm">Real-time check-in monitoring, capacity metrics, and member management.</p>
                 </div>
-                <div class="flex items-center gap-2 text-primary mt-4 font-label-md uppercase tracking-wider text-xs">
+                <div class="flex items-center gap-2 text-primary mt-4 font-label-md uppercase tracking-wider text-[10px] md:text-xs">
                     Access Module <span class="material-symbols-outlined text-sm">arrow_forward</span>
                 </div>
             </a>
