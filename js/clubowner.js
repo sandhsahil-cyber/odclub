@@ -544,7 +544,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     time: data.time || '',
                     memberId: data.memberId,
                     memberName: data.memberName || 'Unknown',
-                    entryType: data.entryType
+                    entryType: data.entryType,
+                    status: data.status || 'confirmed',
+                    photoUrl: data.photoUrl || '',
+                    livePhotoUrl: data.livePhotoUrl || ''
                 };
                 
                 if (data.entryType === 'gym') {
@@ -594,15 +597,32 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('rep-gym-table-count').textContent = gymEntries.length;
             gymBody.innerHTML = '';
             if (gymEntries.length === 0) {
-                gymBody.innerHTML = '<tr><td colspan="4" class="text-center text-muted">No gym entries found for this period.</td></tr>';
+                gymBody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">No gym entries found for this period.</td></tr>';
             } else {
                 gymEntries.forEach(e => {
+                    const statusBadge = e.status === 'rejected' 
+                        ? '<span class="bg-error/20 text-error px-2 py-1 rounded text-xs">Rejected</span>'
+                        : '<span class="bg-primary/20 text-primary px-2 py-1 rounded text-xs">Confirmed</span>';
+                    
+                    const photosHtml = `
+                        <div class="flex gap-2">
+                            <div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container border border-outline-variant/30 flex items-center justify-center">
+                                ${e.photoUrl ? `<img src="${e.photoUrl}" class="w-full h-full object-cover">` : '<span class="material-symbols-outlined text-sm opacity-50">person</span>'}
+                            </div>
+                            <div class="w-8 h-8 rounded-full overflow-hidden border border-primary flex items-center justify-center">
+                                ${e.livePhotoUrl ? `<img src="${e.livePhotoUrl}" class="w-full h-full object-cover transform scale-x-[-1]">` : '<span class="material-symbols-outlined text-sm opacity-50">photo_camera</span>'}
+                            </div>
+                        </div>
+                    `;
+
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td>${e.date}</td>
+                        <td>${e.time}</td>
+                        <td>${photosHtml}</td>
                         <td>${e.memberName}</td>
                         <td>${e.memberId}</td>
-                        <td>${e.time}</td>
+                        <td>${statusBadge}</td>
                     `;
                     gymBody.appendChild(tr);
                 });
@@ -613,15 +633,32 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('rep-gamezone-table-count').textContent = gamezoneEntries.length;
             gzBody.innerHTML = '';
             if (gamezoneEntries.length === 0) {
-                gzBody.innerHTML = '<tr><td colspan="4" class="text-center text-muted">No game zone entries found for this period.</td></tr>';
+                gzBody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">No game zone entries found for this period.</td></tr>';
             } else {
                 gamezoneEntries.forEach(e => {
+                    const statusBadge = e.status === 'rejected' 
+                        ? '<span class="bg-error/20 text-error px-2 py-1 rounded text-xs">Rejected</span>'
+                        : '<span class="bg-primary/20 text-primary px-2 py-1 rounded text-xs">Confirmed</span>';
+                    
+                    const photosHtml = `
+                        <div class="flex gap-2">
+                            <div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container border border-outline-variant/30 flex items-center justify-center">
+                                ${e.photoUrl ? `<img src="${e.photoUrl}" class="w-full h-full object-cover">` : '<span class="material-symbols-outlined text-sm opacity-50">person</span>'}
+                            </div>
+                            <div class="w-8 h-8 rounded-full overflow-hidden border border-primary flex items-center justify-center">
+                                ${e.livePhotoUrl ? `<img src="${e.livePhotoUrl}" class="w-full h-full object-cover transform scale-x-[-1]">` : '<span class="material-symbols-outlined text-sm opacity-50">photo_camera</span>'}
+                            </div>
+                        </div>
+                    `;
+
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td>${e.date}</td>
+                        <td>${e.time}</td>
+                        <td>${photosHtml}</td>
                         <td>${e.memberName}</td>
                         <td>${e.memberId}</td>
-                        <td>${e.time}</td>
+                        <td>${statusBadge}</td>
                     `;
                     gzBody.appendChild(tr);
                 });
@@ -659,18 +696,18 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Gym Section
         csvContent += `GYM ENTRIES REPORT (${fromDate} to ${toDate})\n`;
-        csvContent += "Date,Member Name,Member ID,Entry Time\n";
+        csvContent += "Date,Time,Member Name,Member ID,Status\n";
         gymEntries.forEach(e => {
-            csvContent += `"${e.date}","${e.memberName}","${e.memberId}","${e.time}"\n`;
+            csvContent += `"${e.date}","${e.time}","${e.memberName}","${e.memberId}","${e.status}"\n`;
         });
         
         csvContent += "\n";
         
         // Game Zone Section
         csvContent += `GAME ZONE ENTRIES REPORT (${fromDate} to ${toDate})\n`;
-        csvContent += "Date,Member Name,Member ID,Entry Time\n";
+        csvContent += "Date,Time,Member Name,Member ID,Status\n";
         gzEntries.forEach(e => {
-            csvContent += `"${e.date}","${e.memberName}","${e.memberId}","${e.time}"\n`;
+            csvContent += `"${e.date}","${e.time}","${e.memberName}","${e.memberId}","${e.status}"\n`;
         });
         
         const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -727,10 +764,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (gymEntries.length > 0) {
             doc.setFontSize(14);
             doc.text("Gym Entries", 14, currentY);
-            const gymRows = gymEntries.map(e => [e.date, e.memberName, e.memberId, e.time]);
+            const gymRows = gymEntries.map(e => [e.date, e.time, e.memberName, e.memberId, e.status]);
             doc.autoTable({
                 startY: currentY + 4,
-                head: [['Date', 'Member Name', 'Member ID', 'Entry Time']],
+                head: [['Date', 'Entry Time', 'Member Name', 'Member ID', 'Status']],
                 body: gymRows,
                 theme: 'grid',
                 headStyles: { fillColor: [239, 68, 68] },
@@ -751,10 +788,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             doc.setFontSize(14);
             doc.text("Game Zone Entries", 14, currentY);
-            const gzRows = gzEntries.map(e => [e.date, e.memberName, e.memberId, e.time]);
+            const gzRows = gzEntries.map(e => [e.date, e.time, e.memberName, e.memberId, e.status]);
             doc.autoTable({
                 startY: currentY + 4,
-                head: [['Date', 'Member Name', 'Member ID', 'Entry Time']],
+                head: [['Date', 'Entry Time', 'Member Name', 'Member ID', 'Status']],
                 body: gzRows,
                 theme: 'grid',
                 headStyles: { fillColor: [239, 68, 68] },

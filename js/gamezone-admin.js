@@ -371,7 +371,7 @@ function initDashboard() {
                     </div>
 
                     <div class="flex gap-2 mt-2">
-                        <button class="btn-reject flex-1 bg-surface-container-highest border border-outline-variant/50 text-error py-2 rounded-lg hover:bg-error-container hover:text-on-error-container transition-all flex items-center justify-center gap-1 font-medium" data-id="${doc.id}">
+                        <button class="btn-reject flex-1 bg-surface-container-highest border border-outline-variant/50 text-error py-2 rounded-lg hover:bg-error-container hover:text-on-error-container transition-all flex items-center justify-center gap-1 font-medium" data-id="${doc.id}" data-member="${data.memberId}" data-name="${data.memberName}" data-photo="${data.uploadedPhotoUrl}" data-dbphoto="${dbPhotoUrl}">
                             <span class="material-symbols-outlined text-sm">close</span> Reject
                         </button>
                         <button class="btn-confirm flex-1 bg-primary text-on-primary py-2 rounded-lg hover:brightness-110 glow-primary transition-all flex items-center justify-center gap-1 font-bold" data-id="${doc.id}" data-member="${data.memberId}" data-name="${data.memberName}" data-photo="${data.uploadedPhotoUrl}" data-dbphoto="${dbPhotoUrl}">
@@ -444,6 +444,10 @@ pendingGrid.addEventListener('click', async (e) => {
     } 
     else if (rejectBtn) {
         const id = rejectBtn.dataset.id;
+        const memberId = rejectBtn.dataset.member;
+        const memberName = rejectBtn.dataset.name;
+        const livePhoto = rejectBtn.dataset.photo;
+        const dbPhoto = rejectBtn.dataset.dbphoto;
         const card = document.getElementById(`card-${id}`);
         
         const btns = card.querySelectorAll('button');
@@ -451,6 +455,19 @@ pendingGrid.addEventListener('click', async (e) => {
         rejectBtn.innerHTML = '<span class="material-symbols-outlined animate-spin text-sm">sync</span>';
 
         try {
+            const todayStr = new Date().toISOString().split('T')[0];
+            await db.collection('entries').add({
+                memberId: memberId,
+                memberName: memberName,
+                photoUrl: dbPhoto,
+                livePhotoUrl: livePhoto,
+                entryType: 'gamezone',
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                date: todayStr,
+                confirmedBy: auth.currentUser.email,
+                status: 'rejected'
+            });
+
             await db.collection('pendingCheckins').doc(id).update({ status: 'rejected' });
             card.classList.add('fade-out');
             setTimeout(() => card.remove(), 300);
@@ -547,12 +564,27 @@ async function loadReportsData(period) {
             dailyCounts[data.date] = (dailyCounts[data.date] || 0) + 1;
             uniqueMembers.add(data.memberId);
 
+            const statusBadge = data.status === 'rejected' 
+                ? '<span class="bg-error/20 text-error px-2 py-1 rounded text-xs">Rejected</span>'
+                : '<span class="bg-primary/20 text-primary px-2 py-1 rounded text-xs">Confirmed</span>';
+
             tbody.innerHTML += `
                 <tr id="row-${data.id}">
                     <td>${data.date}</td>
                     <td>${timeStr}</td>
+                    <td>
+                        <div class="flex gap-2">
+                            <div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container border border-outline-variant/30 flex items-center justify-center">
+                                ${data.photoUrl ? `<img src="${data.photoUrl}" class="w-full h-full object-cover">` : '<span class="material-symbols-outlined text-sm opacity-50">person</span>'}
+                            </div>
+                            <div class="w-8 h-8 rounded-full overflow-hidden border border-primary flex items-center justify-center">
+                                ${data.livePhotoUrl ? `<img src="${data.livePhotoUrl}" class="w-full h-full object-cover transform scale-x-[-1]">` : '<span class="material-symbols-outlined text-sm opacity-50">photo_camera</span>'}
+                            </div>
+                        </div>
+                    </td>
                     <td class="font-bold text-on-surface">${data.memberName}</td>
                     <td>${data.memberId}</td>
+                    <td>${statusBadge}</td>
                     <td>
                         <button class="text-error hover:text-error-container transition-colors delete-entry-btn" data-id="${data.id}" title="Remove Entry">
                             <span class="material-symbols-outlined text-lg">delete</span>
@@ -640,9 +672,9 @@ function renderChart(from, to, countsDict) {
 document.getElementById('btn-export-csv').addEventListener('click', async () => {
     if (currentReportsData.length === 0) return showToast('No data to export', 'error');
     
-    let csvContent = "Date,Time,Member Name,Member ID\n";
+    let csvContent = "Date,Time,Member Name,Member ID,Status\n";
     currentReportsData.forEach(row => {
-        csvContent += `${row.date},${row.timeStr},"${row.memberName}",${row.memberId}\n`;
+        csvContent += `${row.date},${row.timeStr},"${row.memberName}",${row.memberId},${row.status || 'confirmed'}\n`;
     });
     
     const fileName = `GameZone_Entries_${Date.now()}.csv`;
@@ -686,11 +718,11 @@ document.getElementById('btn-export-pdf').addEventListener('click', async () => 
     doc.setFontSize(11);
     doc.text(`Generated: ${new Date().toLocaleString()}`, 14, 30);
     
-    const rows = currentReportsData.map(e => [e.date, e.timeStr, e.memberName, e.memberId]);
+    const rows = currentReportsData.map(e => [e.date, e.timeStr, e.memberName, e.memberId, e.status || 'confirmed']);
     
     doc.autoTable({
         startY: 38,
-        head: [['Date', 'Time', 'Member Name', 'Member ID']],
+        head: [['Date', 'Time', 'Member Name', 'Member ID', 'Status']],
         body: rows,
         theme: 'grid',
         headStyles: { fillColor: [255, 178, 188], textColor: [85, 30, 41] },
