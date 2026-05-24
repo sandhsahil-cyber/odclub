@@ -626,7 +626,7 @@ function renderChart(from, to, countsDict) {
 }
 
 // === EXPORT ===
-document.getElementById('btn-export-csv').addEventListener('click', () => {
+document.getElementById('btn-export-csv').addEventListener('click', async () => {
     if (currentReportsData.length === 0) return showToast('No data to export', 'error');
     
     let csvContent = "Date,Time,Member Name,Member ID\n";
@@ -634,16 +634,33 @@ document.getElementById('btn-export-csv').addEventListener('click', () => {
         csvContent += `${row.date},${row.timeStr},"${row.memberName}",${row.memberId}\n`;
     });
     
+    const fileName = `GameZone_Entries_${Date.now()}.csv`;
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    
+    if (navigator.canShare) {
+        try {
+            const file = new File([blob], fileName, { type: 'text/csv' });
+            if (navigator.canShare({ files: [file] })) {
+                await navigator.share({
+                    title: fileName,
+                    files: [file]
+                });
+                return;
+            }
+        } catch (err) {
+            console.log('Share failed:', err);
+        }
+    }
+
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = `GameZone_Entries_${Date.now()}.csv`;
+    link.download = fileName;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 });
 
-document.getElementById('btn-export-pdf').addEventListener('click', () => {
+document.getElementById('btn-export-pdf').addEventListener('click', async () => {
     if (currentReportsData.length === 0) return showToast('No data to export', 'error');
     if (typeof window.jspdf === 'undefined') return showToast('PDF library loading', 'error');
     
@@ -669,5 +686,23 @@ document.getElementById('btn-export-pdf').addEventListener('click', () => {
         styles: { fontSize: 10 }
     });
     
-    doc.save(`GameZone_Entries_${Date.now()}.pdf`);
+    const fileName = `GameZone_Entries_${Date.now()}.pdf`;
+    
+    if (navigator.canShare) {
+        try {
+            const pdfBlob = doc.output('blob');
+            const file = new File([pdfBlob], fileName, { type: 'application/pdf' });
+            if (navigator.canShare({ files: [file] })) {
+                await navigator.share({
+                    title: fileName,
+                    files: [file]
+                });
+                return;
+            }
+        } catch (err) {
+            console.log('Share failed:', err);
+        }
+    }
+    
+    doc.save(fileName);
 });
