@@ -538,10 +538,11 @@ document.addEventListener('DOMContentLoaded', () => {
             
             snapshot.forEach(doc => {
                 const data = doc.data();
+                const timeStr = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '--';
                 const entry = {
                     id: doc.id,
                     date: data.date,
-                    time: data.time || '',
+                    time: timeStr,
                     memberId: data.memberId,
                     memberName: data.memberName || 'Unknown',
                     entryType: data.entryType,
