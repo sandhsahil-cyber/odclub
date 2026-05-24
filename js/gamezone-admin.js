@@ -542,19 +542,19 @@ async function loadReportsData(period) {
         allEntries.forEach(data => {
             const timeStr = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '--';
             
-            currentReportsData.push({ id: doc.id, ...data, timeStr });
+            currentReportsData.push({ ...data, timeStr });
             
             dailyCounts[data.date] = (dailyCounts[data.date] || 0) + 1;
             uniqueMembers.add(data.memberId);
 
             tbody.innerHTML += `
-                <tr id="row-${doc.id}">
+                <tr id="row-${data.id}">
                     <td>${data.date}</td>
                     <td>${timeStr}</td>
                     <td class="font-bold text-on-surface">${data.memberName}</td>
                     <td>${data.memberId}</td>
                     <td>
-                        <button class="text-error hover:text-error-container transition-colors delete-entry-btn" data-id="${doc.id}" title="Remove Entry">
+                        <button class="text-error hover:text-error-container transition-colors delete-entry-btn" data-id="${data.id}" title="Remove Entry">
                             <span class="material-symbols-outlined text-lg">delete</span>
                         </button>
                     </td>
@@ -562,7 +562,7 @@ async function loadReportsData(period) {
             `;
         });
 
-        document.getElementById('rep-total-entries').textContent = snap.size;
+        document.getElementById('rep-total-entries').textContent = allEntries.length;
         document.getElementById('rep-unique-members').textContent = uniqueMembers.size;
         
         renderChart(fromDate, toDate, dailyCounts);
