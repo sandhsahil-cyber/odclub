@@ -1,20 +1,34 @@
 // Common scanner utilities for dreamclubapp
 
-// Helper to log in or automatically create account on first attempt
 async function loginOrSignup(email, password) {
   try {
     const userCredential = await auth.signInWithEmailAndPassword(email, password);
     return userCredential.user;
   } catch (error) {
-    if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
+    if (error.code === 'auth/user-not-found') {
       try {
         const userCredential = await auth.createUserWithEmailAndPassword(email, password);
         return userCredential.user;
       } catch (signupError) {
-        throw signupError;
+        throw new Error('Failed to create account. Please check your credentials.');
       }
     }
-    throw error;
+    
+    if (error.code === 'auth/invalid-credential' || error.message.includes('INVALID_LOGIN_CREDENTIALS')) {
+        throw new Error('Invalid email or password.');
+    }
+    
+    let msg = error.message;
+    if (msg.startsWith('{')) {
+        try {
+            const parsed = JSON.parse(msg);
+            if (parsed.error && parsed.error.message) {
+                msg = parsed.error.message.replace(/_/g, ' ').toLowerCase();
+                msg = msg.charAt(0).toUpperCase() + msg.slice(1);
+            }
+        } catch(e) {}
+    }
+    throw new Error(msg);
   }
 }
 
