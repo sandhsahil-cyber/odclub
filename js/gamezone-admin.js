@@ -506,12 +506,24 @@ async function loadReportsData(period) {
 
     try {
         const snap = await db.collection('entries')
-            .where('entryType', '==', 'gamezone')
             .where('date', '>=', fromDate)
             .where('date', '<=', toDate)
-            .orderBy('date', 'desc')
-            .orderBy('timestamp', 'desc')
             .get();
+
+        let allEntries = [];
+        snap.forEach(doc => {
+            const data = doc.data();
+            if (data.entryType === 'gamezone') {
+                allEntries.push({ id: doc.id, ...data });
+            }
+        });
+        
+        // Sort descending by timestamp
+        allEntries.sort((a, b) => {
+            const tA = a.timestamp ? a.timestamp.toMillis() : 0;
+            const tB = b.timestamp ? b.timestamp.toMillis() : 0;
+            return tB - tA;
+        });
 
         currentReportsData = [];
         let dailyCounts = {};
@@ -519,7 +531,7 @@ async function loadReportsData(period) {
         const tbody = document.getElementById('reports-table-body');
         tbody.innerHTML = '';
 
-        if (snap.empty) {
+        if (allEntries.length === 0) {
             document.getElementById('rep-total-entries').textContent = '0';
             document.getElementById('rep-unique-members').textContent = '0';
             tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-on-surface-variant">No data for selected period</td></tr>';
@@ -527,8 +539,7 @@ async function loadReportsData(period) {
             return;
         }
 
-        snap.forEach(doc => {
-            const data = doc.data();
+        allEntries.forEach(data => {
             const timeStr = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '--';
             
             currentReportsData.push({ id: doc.id, ...data, timeStr });
