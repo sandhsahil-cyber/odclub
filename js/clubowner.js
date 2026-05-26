@@ -141,11 +141,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         feedItem.innerHTML = `
                             <div class="feed-photos">
                                 <div style="text-align: center;">
-                                    <img class="feed-photo" src="${data.photoUrl || 'https://via.placeholder.com/50?text=No+Photo'}" alt="Ref">
+                                    <img class="feed-photo preview-trigger cursor-zoom-in" src="${data.photoUrl || 'https://via.placeholder.com/50?text=No+Photo'}" alt="Ref">
                                     <div style="font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase;">Profile</div>
                                 </div>
                                 <div style="text-align: center;">
-                                    <img class="feed-photo" src="${data.livePhotoUrl || 'https://via.placeholder.com/50?text=No+Live'}" alt="Live">
+                                    <img class="feed-photo preview-trigger cursor-zoom-in" src="${data.livePhotoUrl || 'https://via.placeholder.com/50?text=No+Live'}" alt="Live">
                                     <div style="font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase;">Live</div>
                                 </div>
                             </div>
@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         tr.innerHTML = `
                             <td>
                                 <div style="width: 40px; height: 40px; border-radius: 50%; background-color: var(--border-color); overflow: hidden;">
-                                    ${data.photoUrl ? `<img src="${data.photoUrl}" style="width: 100%; height: 100%; object-fit: cover;">` : '<div style="width:100%;height:100%;background:#222;display:flex;align-items:center;justify-content:center;font-size:0.8rem;color:#666;">No</div>'}
+                                    ${data.photoUrl ? `<img src="${data.photoUrl}" class="preview-trigger cursor-zoom-in" style="width: 100%; height: 100%; object-fit: cover;">` : '<div style="width:100%;height:100%;background:#222;display:flex;align-items:center;justify-content:center;font-size:0.8rem;color:#666;">No</div>'}
                                 </div>
                             </td>
                             <td>${doc.id}</td>
@@ -608,10 +608,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     const photosHtml = `
                         <div class="flex gap-2">
                             <div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container border border-outline-variant/30 flex items-center justify-center">
-                                ${e.photoUrl ? `<img src="${e.photoUrl}" class="w-full h-full object-cover">` : '<span class="material-symbols-outlined text-sm opacity-50">person</span>'}
+                                ${e.photoUrl ? `<img src="${e.photoUrl}" class="w-full h-full object-cover preview-trigger cursor-zoom-in">` : '<span class="material-symbols-outlined text-sm opacity-50">person</span>'}
                             </div>
                             <div class="w-8 h-8 rounded-full overflow-hidden border border-primary flex items-center justify-center">
-                                ${e.livePhotoUrl ? `<img src="${e.livePhotoUrl}" class="w-full h-full object-cover transform scale-x-[-1]">` : '<span class="material-symbols-outlined text-sm opacity-50">photo_camera</span>'}
+                                ${e.livePhotoUrl ? `<img src="${e.livePhotoUrl}" class="w-full h-full object-cover transform scale-x-[-1] preview-trigger cursor-zoom-in">` : '<span class="material-symbols-outlined text-sm opacity-50">photo_camera</span>'}
                             </div>
                         </div>
                     `;
@@ -644,10 +644,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     const photosHtml = `
                         <div class="flex gap-2">
                             <div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container border border-outline-variant/30 flex items-center justify-center">
-                                ${e.photoUrl ? `<img src="${e.photoUrl}" class="w-full h-full object-cover">` : '<span class="material-symbols-outlined text-sm opacity-50">person</span>'}
+                                ${e.photoUrl ? `<img src="${e.photoUrl}" class="w-full h-full object-cover preview-trigger cursor-zoom-in">` : '<span class="material-symbols-outlined text-sm opacity-50">person</span>'}
                             </div>
                             <div class="w-8 h-8 rounded-full overflow-hidden border border-primary flex items-center justify-center">
-                                ${e.livePhotoUrl ? `<img src="${e.livePhotoUrl}" class="w-full h-full object-cover transform scale-x-[-1]">` : '<span class="material-symbols-outlined text-sm opacity-50">photo_camera</span>'}
+                                ${e.livePhotoUrl ? `<img src="${e.livePhotoUrl}" class="w-full h-full object-cover transform scale-x-[-1] preview-trigger cursor-zoom-in">` : '<span class="material-symbols-outlined text-sm opacity-50">photo_camera</span>'}
                             </div>
                         </div>
                     `;
@@ -839,6 +839,109 @@ document.addEventListener('DOMContentLoaded', () => {
             const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
             document.getElementById('rep-from-date').value = firstDay.toISOString().split('T')[0];
             generateReport();
+        });
+    }
+
+    // Image Preview Modal Logic
+    const imagePreviewModal = document.getElementById('image-preview-modal');
+    const previewProfileImage = document.getElementById('preview-profile-image');
+    const previewLiveImage = document.getElementById('preview-live-image');
+    const previewProfileCard = document.getElementById('preview-profile-card');
+    const previewLiveCard = document.getElementById('preview-live-card');
+    const closePreviewBtn = document.getElementById('close-preview-btn');
+
+    if (imagePreviewModal && previewProfileImage && previewLiveImage) {
+        // Event delegation to capture clicks on any image with class 'preview-trigger'
+        document.addEventListener('click', (e) => {
+            if (e.target && e.target.classList.contains('preview-trigger')) {
+                let profileUrl = '';
+                let liveUrl = '';
+                
+                // Find parent container to locate related profile & live photos
+                const reportPhotosContainer = e.target.closest('.flex.gap-2');
+                const feedPhotosContainer = e.target.closest('.feed-photos');
+                
+                if (reportPhotosContainer) {
+                    const imgs = reportPhotosContainer.querySelectorAll('img');
+                    if (imgs.length >= 1) profileUrl = imgs[0].src;
+                    if (imgs.length >= 2) liveUrl = imgs[1].src;
+                } else if (feedPhotosContainer) {
+                    const imgs = feedPhotosContainer.querySelectorAll('img');
+                    if (imgs.length >= 1) profileUrl = imgs[0].src;
+                    if (imgs.length >= 2) liveUrl = imgs[1].src;
+                } else {
+                    // Fallback for single image (e.g. members list)
+                    profileUrl = e.target.src;
+                }
+
+                if (profileUrl && !profileUrl.includes('placeholder')) {
+                    previewProfileImage.src = profileUrl;
+                    
+                    if (liveUrl && !liveUrl.includes('placeholder')) {
+                        previewLiveImage.src = liveUrl;
+                        previewLiveCard.classList.remove('hidden');
+                        previewProfileCard.querySelector('.profile-label').textContent = "Registered Profile";
+                    } else {
+                        previewLiveImage.src = '';
+                        previewLiveCard.classList.add('hidden');
+                        previewProfileCard.querySelector('.profile-label').textContent = "Member Photo";
+                    }
+
+                    // Dynamically set title based on Member Name in table/feed row
+                    const row = e.target.closest('tr') || e.target.closest('.feed-item');
+                    if (row) {
+                        let name = '';
+                        if (row.tagName === 'TR') {
+                            const tds = row.querySelectorAll('td');
+                            if (tds.length === 6) { // Report row
+                                name = tds[3].textContent.trim();
+                            } else if (tds.length === 5) { // Member row
+                                name = tds[2].textContent.trim();
+                            }
+                        } else { // Feed item row
+                            const nameEl = row.querySelector('.feed-details div');
+                            if (nameEl) {
+                                name = nameEl.firstChild.textContent.trim();
+                            }
+                        }
+                        if (name) {
+                            document.getElementById('preview-title').textContent = `Verification: ${name}`;
+                        } else {
+                            document.getElementById('preview-title').textContent = 'Verification Preview';
+                        }
+                    } else {
+                        document.getElementById('preview-title').textContent = 'Verification Preview';
+                    }
+                    
+                    imagePreviewModal.classList.remove('hidden');
+                }
+            }
+        });
+
+        // Close when clicking close button, or clicking outside the content area
+        const closePreview = () => {
+            imagePreviewModal.classList.add('hidden');
+            previewProfileImage.src = '';
+            previewLiveImage.src = '';
+        };
+
+        if (closePreviewBtn) {
+            closePreviewBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                closePreview();
+            });
+        }
+
+        imagePreviewModal.addEventListener('click', (e) => {
+            // Close if clicking outside the modal dialog box itself
+            closePreview();
+        });
+
+        // Close on Escape key press
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !imagePreviewModal.classList.contains('hidden')) {
+                closePreview();
+            }
         });
     }
 });

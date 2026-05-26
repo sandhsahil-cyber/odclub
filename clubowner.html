@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>OD Club | Owner Panel</title>
+    <title>OD Club | Superadmin Portal</title>
     <link rel="manifest" href="/manifest.json">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
@@ -78,7 +78,7 @@
             <div class="absolute inset-0 pointer-events-none opacity-20 bg-[url('https://lh3.googleusercontent.com/aida-public/AB6AXuDglD7Dwdr6hs-yJ71lAUb1O4ISzuBnJzO722WaUUJQHc9OwpX3Voh915eplCa1rZcFQMUKfI9_ebonizdYTO19wM9JPrKdQHqSgRhU36EaXitjEwXH5quZ9-HqWE4_KfPficVZXJxn3ZbPGytvio0qCGEUg861gDBJe1eX6FXiBtwk9zXMBJ6qXYJDrsOABBg-oSzXijAmfGfcUnU87x3kntcTmjc3OQJKKbk_-q9ucNzuV2vd0QpM95qV9vkLw94bThCdnPSgKP0')] bg-cover mix-blend-overlay"></div>
             
             <div class="relative z-10">
-                <h2 class="font-headline-md text-headline-md text-primary tracking-wider uppercase mb-2 text-center">Owner Login</h2>
+                <h2 class="font-headline-md text-headline-md text-primary tracking-wider uppercase mb-2 text-center">Superadmin Login</h2>
                 <p class="text-on-surface-variant font-label-md text-center mb-6">Login with your credentials.</p>
                 
                 <div id="login-alert" class="hidden mb-4 p-3 rounded bg-error-container text-on-error-container text-sm text-center"></div>
@@ -140,25 +140,25 @@
                 
                 <!-- Quick Stats Bento Grid (Moved inside tab) -->
                 <section class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-8 md:mb-12">
-                    <div class="bg-surface-container-low p-4 md:p-6 rose-gold-border rounded-lg group transition-all hover:bg-surface-container border-l-4 border-l-primary/50">
+                    <div id="card-total-members" class="bg-surface-container-low p-4 md:p-6 rose-gold-border rounded-lg group transition-all hover:bg-surface-container border-l-4 border-l-primary/50 cursor-pointer hover:scale-[1.02] active:scale-[0.99]">
                         <p class="font-label-md text-on-surface-variant mb-1 md:mb-2 text-xs md:text-sm">TOTAL MEMBERS</p>
                         <div class="flex items-baseline gap-2">
                             <span class="font-headline-lg text-2xl md:text-3xl text-primary" id="stat-total-members">0</span>
                         </div>
                     </div>
-                    <div class="bg-surface-container-low p-4 md:p-6 rose-gold-border rounded-lg group transition-all hover:bg-surface-container">
+                    <div id="card-gym-entries" class="bg-surface-container-low p-4 md:p-6 rose-gold-border rounded-lg group transition-all hover:bg-surface-container cursor-pointer hover:scale-[1.02] active:scale-[0.99]">
                         <p class="font-label-md text-on-surface-variant mb-1 md:mb-2 text-xs md:text-sm uppercase">Gym Entries Today</p>
                         <div class="flex items-baseline gap-2">
                             <span class="font-headline-lg text-2xl md:text-3xl text-primary" id="gym-count">0</span>
                         </div>
                     </div>
-                    <div class="bg-surface-container-low p-4 md:p-6 rose-gold-border rounded-lg group transition-all hover:bg-surface-container">
+                    <div id="card-gamezone-entries" class="bg-surface-container-low p-4 md:p-6 rose-gold-border rounded-lg group transition-all hover:bg-surface-container cursor-pointer hover:scale-[1.02] active:scale-[0.99]">
                         <p class="font-label-md text-on-surface-variant mb-1 md:mb-2 text-xs md:text-sm uppercase">Game Zone Today</p>
                         <div class="flex items-baseline gap-2">
                             <span class="font-headline-lg text-2xl md:text-3xl text-primary" id="gamezone-count">0</span>
                         </div>
                     </div>
-                    <div class="bg-surface-container-low p-4 md:p-6 rose-gold-border rounded-lg group transition-all hover:bg-surface-container border-l-4 border-l-error">
+                    <div id="card-suspicious-alerts" class="bg-surface-container-low p-4 md:p-6 rose-gold-border rounded-lg group transition-all hover:bg-surface-container border-l-4 border-l-error cursor-pointer hover:scale-[1.02] active:scale-[0.99]">
                         <p class="font-label-md text-error mb-1 md:mb-2 text-xs md:text-sm">SUSPICIOUS ALERTS</p>
                         <div class="flex items-baseline gap-2">
                             <span class="font-headline-lg text-2xl md:text-3xl text-error" id="stat-alerts">0</span>
@@ -170,12 +170,12 @@
                     <!-- Left: Analytics and Alerts -->
                     <div class="lg:col-span-5 space-y-6 flex flex-col">
                         <div class="bg-surface-container-low rose-gold-border rounded-lg p-6 flex-grow min-h-[300px] flex flex-col">
-                            <h3 class="font-headline-md text-on-surface-variant uppercase mb-4">Entry Count (Last 7 Days)</h3>
+                            <h3 class="font-headline-md text-on-surface-variant uppercase mb-4">Entry Checkins (Last 7 Days)</h3>
                             <div class="flex-grow w-full relative">
                                 <canvas id="entryChart"></canvas>
                             </div>
                         </div>
-                        <div class="bg-surface-container-low rose-gold-border rounded-lg p-6 flex-grow border-t-2 border-t-error min-h-[250px]">
+                        <div id="suspicious-alerts-section" class="bg-surface-container-low rose-gold-border rounded-lg p-6 flex-grow border-t-2 border-t-error min-h-[250px]">
                             <h3 class="font-headline-md text-error uppercase mb-4 border-b border-outline-variant/30 pb-2 flex items-center gap-2">
                                 <span class="material-symbols-outlined">gavel</span> Suspicious Alerts
                             </h3>
@@ -357,12 +357,42 @@
         </div>
     </div>
 
+    <!-- Image Preview Modal -->
+    <div id="image-preview-modal" class="hidden fixed inset-0 z-[2000] bg-black/90 flex flex-col justify-center items-center p-4 backdrop-blur-md cursor-zoom-out transition-all duration-300">
+        <div class="relative max-w-4xl w-full bg-surface-container border border-outline-variant/30 rounded-2xl p-6 md:p-8 shadow-2xl cursor-default" onclick="event.stopPropagation()">
+            <button id="close-preview-btn" class="absolute top-4 right-4 text-on-surface-variant hover:text-primary p-2 flex items-center justify-center bg-background/50 hover:bg-background/80 rounded-full transition duration-150">
+                <span class="material-symbols-outlined text-2xl font-bold">close</span>
+            </button>
+            
+            <div id="preview-title" class="font-headline-md text-primary text-xl mb-6 uppercase tracking-wider text-center">Verification Preview</div>
+            
+            <div id="preview-container" class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <!-- Profile Photo Card -->
+                <div id="preview-profile-card" class="flex-1 w-full flex flex-col items-center">
+                    <div class="profile-label text-on-surface-variant text-sm font-semibold mb-2 uppercase tracking-wide">Registered Profile</div>
+                    <div class="w-full aspect-square max-w-[280px] rounded-lg overflow-hidden border border-outline-variant/30 bg-surface-container-low shadow-lg">
+                        <img id="preview-profile-image" src="" alt="Profile" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                
+                <!-- Live Photo Card -->
+                <div id="preview-live-card" class="flex-1 w-full flex flex-col items-center">
+                    <div class="text-primary text-sm font-semibold mb-2 uppercase tracking-wide">Live Capture</div>
+                    <div class="w-full aspect-square max-w-[280px] rounded-lg overflow-hidden border border-primary/50 bg-surface-container-low shadow-lg">
+                        <img id="preview-live-image" src="" alt="Live" class="w-full h-full object-cover transform scale-x-[-1]">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="/js/clubowner.js"></script>
     <script>
         // Override nav-tab functionality since clubowner.js handles it minimally, let's make it robust for tailwind
         document.addEventListener('DOMContentLoaded', () => {
             const tabs = document.querySelectorAll('.nav-tab');
             const contents = document.querySelectorAll('.tab-content');
+            
             tabs.forEach(tab => {
                 tab.addEventListener('click', () => {
                     const target = tab.getAttribute('data-tab');
@@ -387,6 +417,63 @@
                     });
                 });
             });
+
+            // Quick Stats Bento Grid Card Click Handlers
+            const cardTotalMembers = document.getElementById('card-total-members');
+            if (cardTotalMembers) {
+                cardTotalMembers.addEventListener('click', () => {
+                    const tab = Array.from(tabs).find(t => t.getAttribute('data-tab') === 'members-tab');
+                    if (tab) tab.click();
+                });
+            }
+
+            const cardGymEntries = document.getElementById('card-gym-entries');
+            if (cardGymEntries) {
+                cardGymEntries.addEventListener('click', () => {
+                    const tab = Array.from(tabs).find(t => t.getAttribute('data-tab') === 'reports-tab');
+                    if (tab) {
+                        tab.click();
+                        setTimeout(() => {
+                            const table = document.getElementById('rep-gym-table');
+                            if (table) {
+                                table.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            }
+                        }, 150);
+                    }
+                });
+            }
+
+            const cardGamezoneEntries = document.getElementById('card-gamezone-entries');
+            if (cardGamezoneEntries) {
+                cardGamezoneEntries.addEventListener('click', () => {
+                    const tab = Array.from(tabs).find(t => t.getAttribute('data-tab') === 'reports-tab');
+                    if (tab) {
+                        tab.click();
+                        setTimeout(() => {
+                            const table = document.getElementById('rep-gamezone-table');
+                            if (table) {
+                                table.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            }
+                        }, 150);
+                    }
+                });
+            }
+
+            const cardSuspiciousAlerts = document.getElementById('card-suspicious-alerts');
+            if (cardSuspiciousAlerts) {
+                cardSuspiciousAlerts.addEventListener('click', () => {
+                    const tab = Array.from(tabs).find(t => t.getAttribute('data-tab') === 'live-feed-tab');
+                    if (tab) {
+                        tab.click();
+                        setTimeout(() => {
+                            const section = document.getElementById('suspicious-alerts-section');
+                            if (section) {
+                                section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            }
+                        }, 150);
+                    }
+                });
+            }
 
             // Reset password logic
             const resetPasswordBtn = document.getElementById('reset-password-btn');
